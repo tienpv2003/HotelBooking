@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers.Customer;
 
 import static Controllers.ForgotPass.OTPServlet.generateRandomIntString;
@@ -23,75 +19,56 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.security.cert.X509Certificate;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
-/**
- *
- * @author Acer
- */
 public class OTPSignUpServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet OTPSignUpServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet OTPSignUpServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     private LocalDateTime sendTime;
     private LocalDateTime receiveTime;
     private String otpStr = generateRandomIntString(6);
-
+    /*
+    static {
+        try {
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[]{new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() { return null; }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) { }
+                public void checkServerTrusted(X509Certificate[] certs, String authType) { }
+            }}, new java.security.SecureRandom());
+            SSLContext.setDefault(sslContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("cusMail");
+
+        // Set the properties for the mail session
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true"); // Enable STARTTLS
         props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", 465);
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.port", 587);
+        props.put("mail.smtp.port", "587"); // Port for STARTTLS
 
-        // get Session
-        Session s = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+        // Get the mail session
+        Session s = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("hathanhcong11b11@gmail.com", "jlid evsq nogf atpn"); // Mat khau mail người gửi 
+                return new PasswordAuthentication("hathanhcong11b11@gmail.com", "jlid evsq nogf atpn"); // Sender's email and app-specific password
             }
         });
-        // compose message
+
         try {
+            // Compose the message
             MimeMessage message = new MimeMessage(s);
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email)); // Mail người nhận
-            message.setSubject("Kích hoạt tài khoản."); // Tiêu đề mail
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email)); // Recipient's email
+            message.setSubject("Kích hoạt tài khoản."); // Email subject
             message.setContent("<!DOCTYPE html>"
                     + "<html lang=\"en\">"
                     + "<head>"
@@ -137,25 +114,20 @@ public class OTPSignUpServlet extends HttpServlet {
                     + "<p>Cảm ơn quá khách đã sử dụng dịch vụ của chúng tôi!</p>"
                     + "</div>"
                     + "</body>"
-                    + "</html>", "text/html; charset=UTF-8"); // Nội dung mail
-            // send message
+                    + "</html>", "text/html; charset=UTF-8"); // Email content in HTML
+
+            // Send the message
             Transport.send(message);
+
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+
         sendTime = LocalDateTime.now();
         request.setAttribute("check", "true");
         request.getRequestDispatcher("Views/Login/otp.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -179,12 +151,6 @@ public class OTPSignUpServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @param length
-     * @return a String containing servlet description
-     */
     public static String generateRandomIntString(int length) {
         StringBuilder result = new StringBuilder();
         Random random = new Random();

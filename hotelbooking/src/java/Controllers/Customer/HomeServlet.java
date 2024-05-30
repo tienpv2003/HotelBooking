@@ -11,16 +11,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author PhạmVinhTiến
- */
+
 public class HomeServlet extends HttpServlet {
   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("Views/index.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/client/index.jsp").forward(request, response);
     } 
 
     @Override

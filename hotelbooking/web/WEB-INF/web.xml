@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>Filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/HomeAdminController</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>SignInServlet</servlet-name>
         <servlet-class>Controllers.Customer.SignInServlet</servlet-class>
@@ -17,8 +25,44 @@
         <servlet-class>Controllers.Customer.SignInGoogleServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EmailSignUpServlet</servlet-name>
+        <servlet-class>Controllers.Customer.EmailSignUpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OTPSignUpServlet</servlet-name>
+        <servlet-class>Controllers.Customer.OTPSignUpServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>Controllers.Customer.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginAdminServlet</servlet-name>
+        <servlet-class>Controllers.Staff.LoginAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutAdminServlet</servlet-name>
+        <servlet-class>Controllers.Staff.LogoutAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeAdminController</servlet-name>
+        <servlet-class>Controllers.Staff.HomeAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotStaffServlet</servlet-name>
+        <servlet-class>Controllers.Staff.ForgotStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>All_CustumerServlet</servlet-name>
+        <servlet-class>Controllers.Customer.All_CustumerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Add_staffServlet</servlet-name>
+        <servlet-class>Controllers.Staff.Add_staffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassStaffServlet</servlet-name>
+        <servlet-class>Controllers.Staff.ChangePassStaffServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
@@ -61,8 +105,40 @@
         <url-pattern>/change_password</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>EmailSignUpServlet</servlet-name>
+        <url-pattern>/email_signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OTPSignUpServlet</servlet-name>
+        <url-pattern>/otp_signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutAdminServlet</servlet-name>
+        <url-pattern>/LogoutAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeAdminController</servlet-name>
+        <url-pattern>/HomeAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotStaffServlet</servlet-name>
+        <url-pattern>/ForgotStaffServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>All_CustumerServlet</servlet-name>
+        <url-pattern>/all_custumer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Add_staffServlet</servlet-name>
+        <url-pattern>/add_staff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassStaffServlet</servlet-name>
+        <url-pattern>/change_pass_staff</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>60</session-timeout>

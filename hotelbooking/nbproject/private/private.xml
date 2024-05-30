@@ -3,8 +3,37 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SUMMER_2024/SWP391/hotelbooking/web/Views/index.jsp</file>
-            <file>file:/D:/SUMMER_2024/SWP391/hotelbooking/src/java/DAL/DBContext.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/error_bg.jpg</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/customer-says-one.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/DAL/CustomerDAO.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Staff/ForgotStaffServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Staff/ChangePassStaffServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/gallery-breadcrumb.jpg</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/home-facilities-icon-five.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/dropdown_bg.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/DAL/Add_StaffDao.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/home-facilities-icon-eight.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/ForgotPass/ForgotServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/ForgotPass/ChangePasswordServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Customer/SignUpServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/home-facilities-icon-one.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/DAL/LoginDAO.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/DAL/BaseDAO.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/DAL/DAOType.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Staff/LogoutAdminServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/comment_photo_4.jpg</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/home-facilities-icon-four.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/home-facilities-icon-nine.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/gallery-four.jpg</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/DAL/DBContext.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/home-facilities-icon-twelve.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/gallery-five.jpg</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/customer-slider-bg.png</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Customer/SignInServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/web/Views/img/hotel-facility-one.jpg</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Customer/All_CustumerServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Staff/Add_staffServlet.java</file>
+            <file>file:/D:/BookingHotel/hotelbooking/src/java/Controllers/Customer/SignInGoogleServlet.java</file>
         </group>
     </open-files>
 </project-private>

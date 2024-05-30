@@ -13,7 +13,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="Views/Login/css/style.css">
-
+        <style>
+            body {
+                background-image: url('Views/img/chot.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        </style>
     </head>
 
     <body>
@@ -21,14 +28,13 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center mb-5">
-                        <h2 class="heading-section">Đặt Chỗ Khách Sạn</h2>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-7 col-lg-5">
                         <div class="login-wrap p-4 p-md-5">
                             <div class="icon d-flex align-items-center justify-content-center">
-                                <span class="fa fa-user-o"></span>
+                                <img src="Views/img/logo_chot.jpg" alt="Logo" style="width: auto; height: 100px;">
                             </div>
                             <h3 class="text-center mb-4" style=" font-weight: bold;">Đăng Ký</h3>
                             <c:if test="${not empty errorMessage}">

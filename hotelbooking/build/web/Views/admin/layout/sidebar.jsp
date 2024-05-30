@@ -18,7 +18,7 @@
                 <li class="submenu"> <a href="#"><i class="fas fa-user"></i> <span> Khách hàng </span> <span
                             class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
-                        <li><a href="all-customer.jsp"> Tất cả khách hàng </a></li>
+                        <li><a href="all_custumer"> Tất cả khách hàng </a></li>
                         <li><a href="edit-customer.jsp"> Chỉnh sửa khách hàng </a></li>
                         <li><a href="add-customer.jsp"> Thêm khách hàng </a></li>
                     </ul>

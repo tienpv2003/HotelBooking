@@ -18,10 +18,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Form;
 
-/**
- *
- * @author PhạmVinhTiến
- */
+
 public class SignInGoogleServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

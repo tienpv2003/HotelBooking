@@ -1,7 +1,9 @@
 package Controllers.Customer;
 
 import DAL.CustomerDAO;
+import DAL.LoginDAO;
 import Models.Customer;
+import Models.Staff;
 import java.io.IOException;
 import java.security.MessageDigest;
 import jakarta.servlet.ServletException;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -37,6 +40,7 @@ public class SignInServlet extends HttpServlet {
 
         try {
             CustomerDAO dao = new CustomerDAO();
+            LoginDAO loginDAO = new LoginDAO();
             if (dao.findByEmail(email) != null) {
                 Customer cus = authenticateCustomer(email, password);
                 if (cus != null) {
@@ -55,7 +59,7 @@ public class SignInServlet extends HttpServlet {
                         response.addCookie(cRemember);
                     }
                     session.setAttribute("cusObj", cus);
-                    request.getRequestDispatcher("Views/index.jsp").forward(request, response);
+                    request.getRequestDispatcher("Views/client/index.jsp").forward(request, response);
                 } else {
                     request.setAttribute("email", email);
                     request.setAttribute("errorMessage", "Mật khẩu không chính xác!");
@@ -67,6 +71,27 @@ public class SignInServlet extends HttpServlet {
                     } else {
                         request.getRequestDispatcher("Views/Login/signin.jsp").forward(request, response);
                     }
+                }
+            } else if (loginDAO.findByEmailStaff(email) != null) {
+                Staff staff = authenticateStaff(email, password);
+                
+                if (staff == null) {
+                    session.invalidate();
+                    request.setAttribute("errorMessage", "Sai mật khẩu");
+                    request.getRequestDispatcher("Views/Login/signin.jsp").forward(request, response);
+                } else {
+//                    PrintWriter out = response.getWriter();
+//                    out.print(staff.getPassword());
+
+                    session.setAttribute("emailStaff", staff);
+                    if (staff.getStaff_type_id().getStaff_type_id() == 1) {
+                        response.sendRedirect("HomeAdminController");
+                    } else if (staff.getStaff_type_id().getStaff_type_id() == 2) {
+                        response.sendRedirect("HomeAdminController");
+                    }else  {
+                         request.setAttribute("errorMessage", "Sai mật khẩu ");
+                    }
+
                 }
             } else {
                 request.setAttribute("errorMessage", "Tên đăng nhập không chính xác!");
@@ -98,7 +123,31 @@ public class SignInServlet extends HttpServlet {
 
         return hexString.toString();
     }
-
+    /*
+    private Staff authenticateStaff(String email,String password) throws  SQLException,NoSuchAlgorithmException{
+        LoginDAO loginDAO = new LoginDAO();
+        Staff staff = loginDAO.findByEmailStaff(email);
+        if (staff != null) {
+            String passwordHashed = hashPassword(password);
+            if(staff.getPassword().equals(passwordHashed)){
+                return  staff;
+            }
+        }
+        return null;
+    }
+    */
+    private Staff authenticateStaff(String email, String password) throws SQLException, NoSuchAlgorithmException {
+        LoginDAO loginDAO = new LoginDAO();
+        Staff staff = loginDAO.findByEmailStaff(email);
+        if (staff != null) {
+            String passwordHashed = hashPassword(password);
+            //System.out.println("Hashed Password: " + passwordHashed); // Debugging log
+            if (staff.getPassword().equals(passwordHashed)) {
+                return staff;
+            }
+        }
+        return null;
+    }
     // Phương thức xác thực khách hàng
     private Customer authenticateCustomer(String email, String password) throws SQLException, NoSuchAlgorithmException {
         CustomerDAO cdao = new CustomerDAO();
@@ -112,5 +161,5 @@ public class SignInServlet extends HttpServlet {
         }
         return null;
     }
-
+    
 }

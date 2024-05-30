@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 
     <head>
         <title>Login 01</title>
@@ -42,7 +42,12 @@
                 line-height: normal;
                 padding: 10px 20px;
             }
-
+            body {
+                background-image: url('Views/img/chot.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
         </style>
 
     </head>
@@ -52,14 +57,13 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center mb-5">
-                        <h2 class="heading-section">Booking System</h2>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-7 col-lg-5">
                         <div class="login-wrap p-4 p-md-5">
                             <div class="icon d-flex align-items-center justify-content-center">
-                                <span class="fa fa-user-o"></span>
+                                <img src="Views/img/logo_chot.jpg" alt="Logo" style="width: auto; height: 100px;">
                             </div>
                             <h3 class="text-center mb-4" style=" font-weight: bold;">Xác thực OTP</h3>
                             <c:if test="${messErr != null}">

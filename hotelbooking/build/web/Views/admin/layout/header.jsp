@@ -3,8 +3,8 @@
 
    <div class="header">
                 <div class="header-left">
-                    <a href="index.jsp" class="logo"> <img src="assets/img/hotel_logo.png" width="50" height="70" alt="logo"> <span class="logoclass">KHÁCH SẠN</span> </a>
-                    <a href="index.jsp" class="logo logo-small"> <img src="assets/img/hotel_logo.png" alt="Logo" width="30" height="30"> </a>
+                    <a href="index.jsp" class="logo"> <img src="Views/admin/assets/img/hotel_logo.png" width="50" height="70" alt="logo"> <span class="logoclass">KHÁCH SẠN</span> </a>
+                    <a href="index.jsp" class="logo logo-small"> <img src="Views/admin/assets/img/hotel_logo.png" alt="Logo" width="30" height="30"> </a>
                 </div>
                 <a href="javascript:void(0);" id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
                 <a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
@@ -18,7 +18,7 @@
                                     <li class="notification-message">
                                         <a href="#">
                                             <div class="media"> <span class="avatar avatar-sm">
-                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="assets/img/profiles/avatar-02.jpg">
+                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="Views/admin/assets/img/profiles/avatar-02.jpg">
                                                 </span>
                                                 <div class="media-body">
                                                     <p class="noti-details"><span class="noti-title">Carlson Tech</span> đã chấp nhận <span class="noti-title">bảng báo giá của bạn</span></p>
@@ -30,7 +30,7 @@
                                     <li class="notification-message">
                                         <a href="#">
                                             <div class="media"> <span class="avatar avatar-sm">
-                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="assets/img/profiles/avatar-11.jpg">
+                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="Views/admin/assets/img/profiles/avatar-11.jpg">
                                                 </span>
                                                 <div class="media-body">
                                                     <p class="noti-details"><span class="noti-title">International Software
@@ -43,7 +43,7 @@
                                     <li class="notification-message">
                                         <a href="#">
                                             <div class="media"> <span class="avatar avatar-sm">
-                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="assets/img/profiles/avatar-17.jpg">
+                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="Views/admin/assets/img/profiles/avatar-17.jpg">
                                                 </span>
                                                 <div class="media-body">
                                                     <p class="noti-details"><span class="noti-title">John Hendry</span> đã gửi yêu cầu hủy <span class="noti-title">Apple iPhone
@@ -56,7 +56,7 @@
                                     <li class="notification-message">
                                         <a href="#">
                                             <div class="media"> <span class="avatar avatar-sm">
-                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="assets/img/profiles/avatar-13.jpg">
+                                                    <img class="avatar-img rounded-circle" alt="Ảnh người dùng" src="Views/admin/assets/img/profiles/avatar-13.jpg">
                                                 </span>
                                                 <div class="media-body">
                                                     <p class="noti-details"><span class="noti-title">Mercury Software
@@ -73,15 +73,15 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown has-arrow">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31" alt="Soeng Souy"></span> </a>
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <span class="user-img"><img class="rounded-circle" src="Views/admin/assets/img/profiles/avatar-01.jpg" width="31" alt="Soeng Souy"></span> </a>
                         <div class="dropdown-menu">
                             <div class="user-header">
-                                <div class="avatar avatar-sm"> <img src="assets/img/profiles/avatar-01.jpg" alt="Ảnh người dùng" class="avatar-img rounded-circle"> </div>
+                                <div class="avatar avatar-sm"> <img src="Views/admin/assets/img/profiles/avatar-01.jpg" alt="Ảnh người dùng" class="avatar-img rounded-circle"> </div>
                                 <div class="user-text">
                                     <h6>Soeng Souy</h6>
                                     <p class="text-muted mb-0">Quản trị viên</p>
                                 </div>
-                            </div> <a class="dropdown-item" href="profile.jsp">Hồ sơ của tôi</a> <a class="dropdown-item" href="settings.jsp">Cài đặt tài khoản</a> <a class="dropdown-item" href="login.jsp">Đăng xuất</a> </div>
+                            </div> <a class="dropdown-item" href="profile.jsp">Hồ sơ của tôi</a> <a class="dropdown-item" href="settings.jsp">Cài đặt tài khoản</a> <a class="dropdown-item" href="LogoutAdminServlet">Đăng xuất</a> </div>
                     </li>
                 </ul>
                 <div class="top-nav-search">
