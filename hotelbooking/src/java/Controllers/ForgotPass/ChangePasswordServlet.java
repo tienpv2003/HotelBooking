@@ -4,9 +4,10 @@
  */
 package Controllers.ForgotPass;
 
-import DAL.CustomerDAO;
+import DAO.CustomerDAO;
+import Models.Customer;
+import Utils.LoginValidator;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -78,19 +79,26 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        LoginValidator validator = new LoginValidator();
         String newPass = request.getParameter("password");
+        String valiNewPass = validator.validatePassword(newPass);
         String rePass = request.getParameter("repassword");
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("cusMail") != null) {
-            if (newPass.equals(rePass)) {
+            if (valiNewPass != null) {
+                request.setAttribute("messErr", valiNewPass);
+                request.setAttribute("password", newPass);
+                request.setAttribute("repassword", rePass);
+                request.getRequestDispatcher("Views/Login/changepassword.jsp").forward(request, response);
+            } else if (newPass.equals(rePass)) {
                 String cusMail = (String) session.getAttribute("cusMail");
                 CustomerDAO daoCus = new CustomerDAO();
 
                 try {
                     daoCus.updateCustomerPassword(newPass, cusMail);
-                    request.getRequestDispatcher("Views/Login/signin.jsp").forward(request, response);
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Customer customer = daoCus.findByEmail(cusMail);
+                    customer.setStatus("active");
+                    daoCus.updateStatus(customer);
                     request.getRequestDispatcher("Views/Login/signin.jsp").forward(request, response);
                 } catch (Exception ex) {
                     Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +110,6 @@ public class ChangePasswordServlet extends HttpServlet {
                 request.getRequestDispatcher("Views/Login/changepassword.jsp").forward(request, response);
             }
         } else {
-
             response.sendRedirect("ForgotServlet");
         }
     }

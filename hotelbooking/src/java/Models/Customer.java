@@ -9,7 +9,8 @@ package Models;
  * @author Acer
  */
 public class Customer {
-    private int  customerId;
+
+    private int customerId;
     private TypeCustomer typeCustomer;
     private String firstName;
     private String lastName;
@@ -20,6 +21,15 @@ public class Customer {
     private String status;
 
     public Customer() {
+    }
+
+    public Customer(int customerId, String firstName, String lastName, String email, String phone, String address) {
+        this.customerId = customerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
     }
 
     public Customer(int customerId, TypeCustomer typeCustomer, String firstName, String lastName, String email, String password, String phone, String address, String status) {
@@ -33,6 +43,7 @@ public class Customer {
         this.address = address;
         this.status = status;
     }
+
     public Customer(TypeCustomer typeCustomer, String firstName, String lastName, String email, String password, String phone, String address, String status) {
         this.typeCustomer = typeCustomer;
         this.firstName = firstName;
@@ -43,6 +54,7 @@ public class Customer {
         this.address = address;
         this.status = status;
     }
+
     public Customer(String firstName, String lastName, String email, String password, String phone, String address, String status) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -124,5 +136,5 @@ public class Customer {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
 }

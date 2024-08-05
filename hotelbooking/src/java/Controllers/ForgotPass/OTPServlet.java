@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -78,15 +79,17 @@ public class OTPServlet extends HttpServlet {
 
             // get Session
             Session s = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("hathanhcong11b11@gmail.com", "jlid evsq nogf atpn"); // Mat khau mail người gửi 
+                    return new PasswordAuthentication("hathanhcong11b11@gmail.com", "hzgy xhcn oaaw rlwu"); // Mat khau mail người gửi 
                 }
             });
             // compose message
             try {
                 MimeMessage message = new MimeMessage(s);
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(cusMail)); // Mail người nhận
-                message.setSubject("Testing Subject"); // Tiêu đề mail
+
+                message.setSubject("=?UTF-8?B?" + Base64.getEncoder().encodeToString("Mail xác thực OTP".getBytes("UTF-8")) + "?="); // Tiêu đề mail
                 message.setContent("<!DOCTYPE html>"
                         + "<html lang=\"en\">"
                         + "<head>"

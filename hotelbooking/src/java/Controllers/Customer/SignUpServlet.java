@@ -1,6 +1,6 @@
 package Controllers.Customer;
 
-import DAL.CustomerDAO;
+import DAO.CustomerDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import Models.Customer;
 import jakarta.servlet.http.HttpSession;
-import java.io.PrintWriter;
 
 public class SignUpServlet extends HttpServlet {
 
@@ -31,16 +30,6 @@ public class SignUpServlet extends HttpServlet {
         String address = request.getParameter("address");
         String status = "active";
         String agreed = request.getParameter("agreed");
-        PrintWriter out = response.getWriter();
-//        out.println(firstName);
-//        out.println(lastName);
-//        out.println(email);
-//        out.println(password);
-//        out.println(phoneNumber);
-//        out.println(address);
-//        out.println(status);
-//        out.println(agreed);
-
         boolean insertStatus = false;
         String errorMessage = "";
         String successMessage = "";

@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="Views/Login/css/style.css">
         <style>
             body {
-                background-image: url('Views/img/chot.jpg');
+                background-image: url('Views/Login/img/chot.jpg');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -34,7 +34,7 @@
                     <div class="col-md-7 col-lg-5">
                         <div class="login-wrap p-4 p-md-5">
                             <div class="icon d-flex align-items-center justify-content-center">
-                                <img src="Views/img/logo_chot.jpg" alt="Logo" style="width: auto; height: 100px;">
+                                <img src="Views/Login/img/logo-chot.jpg" alt="Logo" style="width: auto; height: 100px;">
                             </div>
                             <h3 class="text-center mb-4" style=" font-weight: bold;">Đăng Nhập</h3>
                             <c:if test="${errorMessage != null}">
@@ -52,16 +52,9 @@
                                 <div class="form-group d-flex">
                                     <input name="password" type="password" class="form-control rounded-left" placeholder="Mật Khẩu" required>
                                 </div>
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="" name="remember" id="rememberPasswordCheck">
-                                    <label class="form-check-label" for="term">
-                                        Ghi nhớ mật khẩu
-                                    </label>
-                                </div>
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-primary rounded submit px-3">Đăng nhập</button>
                                 </div>
-
                             </form>
                             <hr>
                             <div style="text-align: center">
@@ -73,7 +66,7 @@
                             <div>
                                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/HotelBooking/signingoogle&response_type=code
                                    &client_id=328168281764-4kip3kh0h81t2t9342d1oq3rrg3fb7ms.apps.googleusercontent.com&approval_prompt=force" class="form-control btn btn-primary rounded submit px-3">
-                                    <img src="Views/img/logo-google.jpg" style="width: 40px; height: 40px; margin-right: 5px;border-radius: 20%">
+                                    <img src="Views/client/img/logo-google.jpg" style="width: 40px; height: 40px; margin-right: 5px;border-radius: 20%">
                                     Đăng nhập với Google
                                 </a>
                             </div>

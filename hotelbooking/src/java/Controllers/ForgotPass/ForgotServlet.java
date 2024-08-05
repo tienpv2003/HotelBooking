@@ -4,7 +4,8 @@
  */
 package Controllers.ForgotPass;
 
-import DAL.CustomerDAO;
+import DAO.CustomerDAO;
+import Models.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -57,9 +58,15 @@ public class ForgotServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Login/forgot.jsp").forward(request, response);
+        HttpSession session = request.getSession(true);
+        if (session != null && session.getAttribute("cusObj") != null) {
+            Customer cus = (Customer) session.getAttribute("cusObj");
+            request.setAttribute("email", cus.getEmail());
+            request.getRequestDispatcher("Views/Login/forgot.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("Views/Login/forgot.jsp").forward(request, response);
+        }
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *

@@ -1,229 +1,116 @@
-<!DOCTYPE html>
-<html lang="vi">
-    
-<!-- Mirrored from demoxml.com/html/hotelbooking/room-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:19:57 GMT -->
-<head>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<html lang="en">
+
+    <!-- Mirrored from demoxml.com/html/hotelbooking/room-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:19:57 GMT -->
+    <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Đặt phòng khách sạn</title>
+        <title>Hotel Booking</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" href="img/favicon.ico" sizes="16x16">
 
         <!-- fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Karla:700,400' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
 
         <!-- fontawesome -->
-		<link rel="stylesheet" href="css/font-awesome.css" />
+        <link rel="stylesheet" href="Views/client/css/font-awesome.css" />
 
         <!-- bootstrap -->
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="Views/client/css/bootstrap.min.css" />
 
         <!-- uikit -->
-        <link rel="stylesheet" href="css/uikit.min.css" />
+        <link rel="stylesheet" href="Views/client/css/uikit.min.css" />
 
         <!-- animate -->
-        <link rel="stylesheet" href="css/animate.css" />
-        <link rel="stylesheet" href="css/datepicker.css" />
+        <link rel="stylesheet" href="Views/client/css/animate.css" />
+        <link rel="stylesheet" href="Views/client/css/datepicker.css" />
         <!-- Owl carousel 2 css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="Views/client/css/owl.carousel.css">
         <!-- rev slider -->
-        <link rel="stylesheet" href="css/rev-slider/settings.css" />
+        <link rel="stylesheet" href="Views/client/css/rev-slider/settings.css" />
         <!-- lightslider -->
-        <link rel="stylesheet" href="css/lightslider.css">
+        <link rel="stylesheet" href="Views/client/css/lightslider.css">
         <!-- Theme -->
-        <link rel="stylesheet" href="css/reset.css">
-        
+        <link rel="stylesheet" href="Views/client/css/reset.css">
+
         <!-- custom css -->
-		<link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="Views/client/style.css" />
         <!-- responsive -->
-		<link rel="stylesheet" href="css/responsive.css" />
+        <link rel="stylesheet" href="Views/client/css/responsive.css" />
+        <style>
+            .breadcrumb_main1 {
+                position: relative;
+                text-align: center;
+            }
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!-- This Template Is Fully Coded By Aftab Zaman from swiftconcept.com -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+            .centered-heading1 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+                font-size: 2em; /* Adjust the size as needed */
+                z-index: 1; /* Ensure it appears above the image */
+            }
 
+            .breadcrumb_main1 img {
+                width: 100%;
+                height: auto;
+            }
+
+        </style>
     </head>
     <body id="room_detail_page">
-
-        
-        <!-- start header -->
-        <header class="header_area">
-
-            <!-- start header top -->
-            <div class="header_top_area">
-                <div class="container">
+        <jsp:include page="layout/header.jsp"></jsp:include>
+            <!-- start breadcrumb -->
+            <section class="breadcrumb_main_area margin-bottom-80">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="header_top clearfix">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                <div class="left_header_top">
-                                    <ul>
-                                        <li><a href="#"><img src="img/temp-icon.png" alt="temp-icon">London dc, GR 17°C</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 floatright">
-                                <div class="right_header_top clearfix floatright">
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li class="">
-                                            <a class="border-right-dark-4" href="#">Đăng nhập</a></li>
-                                        <li role="presentation" class="dropdown">
-                                            <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                              Đăng kí
-                                              <span class="caret"></span>
-                                            </a>
-                                            <!-- <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                            </ul> -->
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end header top  -->
-
-            <!-- start main header -->
-            <div class="main_header_area">
-                <div class="container">
-                    <!-- start mainmenu & logo -->
-                    <div class="mainmenu">
-                        <div id="nav">
-                            <nav class="navbar navbar-default">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">Chuyển đổi điều hướng thành</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                  </button>
-                                  <div class="site_logo fix">
-                                      <a id="brand" class="clearfix navbar-brand" href="index.html"><img src="img/site-logo.png" alt="Trips"></a>
-                                      <!-- <div class="header_login floatleft">
-                                          <ul>
-                                              <li><a href="#">Login</a></li>
-                                              <li><a href="#">Register</a></li>
-                                          </ul>
-                                      </div>   -->         
-                                  </div>
-                                </div>
-
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                < <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                                    <ul class="nav navbar-nav">
-                                      <li role="presentation" class="dropdown">
-                                          <a id="drop-one" href="index.html" class="dropdown-toggle">
-                                            Trang chủ
-                                          </a>
-                                          <!-- <ul id="menu1" class="dropdown-menu" role="menu">
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="index-two.html">Home Page two</a></li>
-                                          </ul> -->
-                                      </li>        
-                                      <li><a href="accomodation.html">Chỗ ở</a></li>
-                                      <li><a href="gallery.html">Phòng trưng bày</a></li>
-                                      <li role="presentation" class="dropdown">
-                                          <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                              Đặc trưng
-                                          </a>
-                                          <ul id="menu2" class="dropdown-menu" role="menu">Chỗ ở
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="about-us.html">Về chúng tôi</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="booking.html">Đặt trước</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="room-details.html">Chi tiết phòng</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="staff.html">Nhân viên của chúng tôi</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="404.html">404 Page</a></li>
-                                          </ul>
-                                      </li>
-                                      <li><a href="blog.html">Tin tức</a></li>
-                                      <li><a href="contact-us.html">Liên hệ</a></li>
-                                    </ul>
-                                    <div class="emergency_number">
-                                        <a href="tel:1234567890"><img src="img/call-icon.png" alt="">123 456 7890</a>
-                                    </div>
-                                  </div><!-- /.navbar-collapse -->
-                            </nav>
-                        </div>
-                    </div>
-                    <!-- end mainmenu and logo -->
-                </div>
-            </div>
-            <!-- end main header -->
-
-        </header>
-        <!-- end header -->
-
-        <!-- start breadcrumb -->
-        <section class="breadcrumb_main_area margin-bottom-80">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="breadcrumb_main nice_title">
-                        <h2>Phòng sang trọng</h2>
+                        <div class="breadcrumb_main1" style="padding-top: 0px; padding-bottom: 0px; position: relative;">
+                            <img src="Views/client/img/accomodation-breadcrumb-one.jpg" alt="imf" style="width: 100%;">
+                            <h2 class="centered-heading1">${roomType.typeName}</h2>
                         <!-- special offer start -->
                         <div class="special_offer_main">
                             <div class="container">
-                                <div class="special_offer_sub">
-                                    <img src="img/special-offer-yellow-main.png" alt="imf">
+                                <div class="special_offer_sub" style="position: absolute">
+                                    <img src="Views/client/img/special-offer-yellow-main.png" alt="imf">
                                 </div>
                             </div>
                         </div>         
                         <!-- end offer start -->
                     </div>
                 </div>
-            </div>            
+            </div>
         </section>
         <!-- end breadcrunb -->
-        
         <div class="room_detail_main margin-bottom-55">
             <div class="container">
                 <div class="row">
+                    <c:set value="${roomType}" var="t"/>
                     <div class="col-lg-9 col-md-9">
                         <div class="deluxe_room_detail">
                             <div class="section_title content-left margin-bottom-5">
-                                <h5>Chi tiết phòng sang trọng <span class="price floatright">200đ</span> <br> <span class="day floatright">/đêm</span></h5>
+                                <h5>Kiểu: ${t.typeName} <span class="price floatright"><fmt:formatNumber value="${t.roomTypePrice}" type="number" groupingUsed="true" /> VND/Đêm</span></h5>
                             </div>
                             <div class="section_content">
-                                <p>Kiểm tra giao dịch mới đây</p>
+                                <p>${t.titleDescripsion}</p>
                                 <div class="showcase">
                                     <div class="section_description">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="clearfix" style="">
                                                     <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                                    <!-- <ul id="vertical" class="gallery list-unstyled"> -->
-                                                        <li data-thumb="img/lightslider-img/cS-52.jpg">
-                                                            <img alt="slider" src="img/lightslider-img/cS-52.jpg" />
-                                                        </li>
-                                                        <li data-thumb="img/lightslider-img/cS-51.jpg">
-                                                            <img alt="slider" src="img/lightslider-img/cS-51.jpg" />
-                                                        </li>
-                                                        <li data-thumb="img/lightslider-img/cS-50.jpg"> 
-                                                            <img alt="slider" src="img/lightslider-img/cS-50.jpg" />
-                                                        </li>
-                                                        <li data-thumb="img/lightslider-img/cS-49.jpg"> 
-                                                            <img alt="slider" src="img/lightslider-img/cS-49.jpg" />
-                                                        </li>
-                                                        <li data-thumb="img/lightslider-img/cS-48.jpg"> 
-                                                            <img alt="slider" src="img/lightslider-img/cS-48.jpg" />
-                                                        </li>
-                                                        <li data-thumb="img/lightslider-img/cS-47.jpg"> 
-                                                            <img alt="slider" src="img/lightslider-img/cS-47.jpg" />
-                                                        </li>
-                                                        <li data-thumb="img/lightslider-img/cS-46.jpg"> 
-                                                            <img alt="slider" src="img/lightslider-img/cS-46.jpg" />
-                                                        </li>
-                                                        <li data-thumb="img/lightslider-img/cS-45.jpg"> 
-                                                            <img alt="slider" src="img/lightslider-img/cS-45.jpg" />
-                                                        </li>
+                                                        <!-- <ul id="vertical" class="gallery list-unstyled"> -->
+                                                        <c:forEach items="${t.roomImages}" var="img">
+                                                            <li data-thumb="Views/client/img/${img}" style="width:100%;height: auto; object-fit: cover">
+                                                                <img alt="slider" src="Views/client/img/${img}" style="width:100%;height: auto; object-fit: cover"/>
+                                                            </li>
+                                                        </c:forEach>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -232,66 +119,30 @@
                                             <div class="facilities_name clearfix margin-bottom-40 margin-top-65">
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="section_title margin-bottom-35 padding-bottom-25 border-bottom-whitesmoke">
-                                                        <h5>Tiện nghi phòng</h5>
+                                                        <h5>Dịch vụ phòng</h5>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 no-padding-left">
-                                                    <ul class="single_facilities_name clearul">
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-one.png" alt="">
-                                                            <p>Bữa sáng</p>
-                                                        </li>
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-four.png" alt="">
-                                                            <p>Dịch vụ phòng</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <ul class="single_facilities_name clearul">
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-two.png" alt="">
-                                                            <p>Điều hòa</p>
-                                                        </li>
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-ten.png" alt="">
-                                                            <p>Phòng tập gym</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <ul class="single_facilities_name clearul">
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-eight.png" alt="">
-                                                            <p>Bãi đậu xe miễn phí</p>
-                                                        </li>
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-five.png" alt="">
-                                                            <p>TV LCD</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <ul class="single_facilities_name clearul">
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-three.png" alt="">
-                                                            <p>Cho phép thú cưng</p>
-                                                        </li>
-                                                        <li>
-                                                            <img src="img/home-facilities-icon-twelve.png" alt="">
-                                                            <p>Dịch vụ wifi</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                <c:forEach items="${t.listService}" var="service">
+                                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 no-padding-left">
+                                                        <ul class="single_facilities_name clearul">
+                                                            <li>
+                                                                <img src="Views/client/img/${service.image}" alt="">
+                                                                <p>${service.nameService}</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="room_facilities_des padding-top-50 padding-bottom-50 border-bottom-whitesmoke border-top-whitesmoke">
                                                     <p>
-                                                        Phòng ở đây tiện nghi thoải mái , có nhiều dịch vụ tiện nghi rất thích hợp để nghỉ ngơi thoải mái ở đây
+                                                        ${t.roomTypedescripsion}
                                                     </p>
-                                                    
+                                                    <p>
+                                                        ${t.contentDescripsion}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -301,63 +152,29 @@
                                                 <div class="col-lg-12 col-md-12">
                                                     <div class="welcome">
                                                         <div class="section_title content-left margin-top-50 margin-bottom-30">
-                                                            <h5>Bạn có thể thích mấy phòng này</h5>
+                                                            <h5>Các loại phòng khác</h5>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                                <div class="single_room_wrapper clearfix">
-                                                                    <div class="room_wrapper">
-                                                                        <div class="room_media">
-                                                                            <a href="#"><img src="img/room-image-ten.jpg" alt=""></a>
-                                                                        </div>
-                                                                        <div class="room_title clearfix">
-                                                                            <div class="left_room_title floatleft">
-                                                                                <h6>Phòng sang trọng</h6>
-                                                                                <p>200đ/<span>đêm</span></p>
+                                                            <c:forEach items="${top4}" var="four">
+                                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                                    <div class="single_room_wrapper clearfix">
+                                                                        <div class="room_wrapper">
+                                                                            <div class="room_media">
+                                                                                <img style="width: 100%; height: 145px" src="Views/client/img/${four.roomtype_img}" >
                                                                             </div>
-                                                                            <div class="left_room_title floatright">
-                                                                                <a href="booking.html" class="btn">Đặt phòng</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                                <div class="single_room_wrapper clearfix">
-                                                                    <div class="room_wrapper">
-                                                                        <div class="room_media">
-                                                                            <a href="#"><img src="img/room-image-twelve.jpg" alt=""></a>
-                                                                        </div>
-                                                                        <div class="room_title clearfix">
-                                                                            <div class="left_room_title floatleft">
-                                                                                <h6>Phòng sang trọng</h6>
-                                                                                <p>200đ/ <span>đêm</span></p>
-                                                                            </div>
-                                                                            <div class="left_room_title floatright">
-                                                                                <a href="booking.html" class="btn">Đặt phòng</a>
+                                                                            <div class="room_title clearfix">
+                                                                                <div class="left_room_title floatleft">
+                                                                                    <h5>${four.typeName}</h5>
+                                                                                    <p><fmt:formatNumber value="${four.roomTypePrice}" type="number" groupingUsed="true"/> VND<span>/Đêm</span></p>
+                                                                                </div>
+                                                                                <div class="left_room_title floatright">
+                                                                                    <a href="room_type_details?id=${four.roomTypeId}" class="btn btn-md">Xem thêm</a>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                                <div class="single_room_wrapper clearfix">
-                                                                    <div class="room_wrapper">
-                                                                        <div class="room_media">
-                                                                            <a href="#"><img src="img/room-image-thirteen.jpg" alt=""></a>
-                                                                        </div>
-                                                                        <div class="room_title clearfix">
-                                                                            <div class="left_room_title floatleft">
-                                                                                <h6>Phòng sang trọng</h6>
-                                                                                <p>200đ/ <span>đêm</span></p>
-                                                                            </div>
-                                                                            <div class="left_room_title floatright">
-                                                                                <a href="booking.html" class="btn">Đặt phòng</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                            </c:forEach>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -372,267 +189,192 @@
                     <div class="col-lg-3 col-md-3">
                         <!-- start hotel booking -->
                         <div class="col-lg-12 col-md-12 col-sm-4">
-                            <div class="hotel_booking_area clearfix">
-                                <div class="hotel_booking">
-                                    <form id="form1" role="form" action="#" class="">
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="room_book">
-                                                <h6>Đặt phòng của bạn</h6>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-lg-12 col-md-12">
-                                            <div class="input-group border-bottom-dark-2">
-                                                <input class="date-picker" id="datepicker" placeholder="Arrival" type="text"/>
-                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>               
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-lg-12 col-md-12">
-                                            <div class="input-group border-bottom-dark-2">
-                                                <input class="date-picker" id="datepicker1" placeholder="Departure" type="text"/>
-                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>                
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-lg-6 col-md-6 icon_arrow">
-                                                    <div class="input-group border-bottom-dark-2">
-                                                        <select class="form-control" name="room" id="room">
-                                                          <option selected="selected" disabled="disabled">1 Phòng</option>
-                                                          <option value="Single">1 phòng đơn</option>
-                                                          <option value="Double">2 phòng đôi</option>
-                                                          <option value="Deluxe">3 Phòng sang trọng</option>
-                                                        </select>               
-                                                    </div>  
-                                                </div>
-                                                <div class="form-group col-lg-6 col-md-6 icon_arrow">
-                                                    <div class="input-group border-bottom-dark-2">
-                                                        <select class="form-control" name="room" id="bed">
-                                                          <option selected="selected" disabled="disabled">Giường</option>
-                                                          <option value="Single">1 giường đơn</option>
-                                                          <option value="Double">2 giường đôi</option>
-                                                          <option value="Deluxe">3 giường sang trọng</option>
-                                                        </select>               
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-lg-6 col-md-6 icon_arrow">
-                                                    <div class="input-group border-bottom-dark-2">
-                                                        <select class="form-control" name="room" id="adult">
-                                                          <option selected="selected" disabled="disabled">1 Người lớn</option>
-                                                          <option value="Single">1 người lớn</option>
-                                                          <option value="Double">2 người lớn/option>
-                                                          <option value="Deluxe">3 người lớn</option>
-                                                        </select>               
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-lg-6 col-md-6 icon_arrow">
-                                                    <div class="input-group border-bottom-dark-2">
-                                                        <select class="form-control" name="room" id="child">
-                                                          <option selected="selected" disabled="disabled">1 Trẻ em</option>
-                                                          <option value="Single">1 trẻ em</option>
-                                                          <option value="Double">2 trẻ em</option>
-                                                          <option value="Deluxe">3 trẻ em</option>
-                                                        </select>               
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                            <a href="booking.html" class="btn btn-primary floatright">Đặt</a>
-                                        </div>
-                                    </form>
+                            <form id="form1" role="form" action="#" class="">
+                                <div class="col-lg-12 col-md-12">
+                                    <c:if test="${sessionScope.cusObj != null}">
+                                        <a class="btn btn-warning btn-md center-block" href="booking_step_1?typeId=${roomType.roomTypeId}">Đặt phòng</a>
+                                    </c:if>   
+                                    <c:if test="${sessionScope.cusObj == null}">   
+                                        <a class="btn btn-warning btn-md center-block" href="signin">Đặt phòng</a>
+                                    </c:if>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <!-- end hotel booking -->
                         <!-- start client says slider -->
                         <div class="col-lg-12 col-md-12 col-sm-4">
                             <div class="customer_says margin-top-65">
                                 <div class="section_title margin-bottom-30">
-                                    <h5>Khách hàng review</h5>
+                                    <h5>Đánh giá Khách Hàng</h5>
                                 </div>
                                 <div class="section_description">
                                     <div id="customer_says_slider" class="carousel slide" data-ride="carousel" data-pause="none">
-                                        <!-- Wrapper for slides -->
-                                        <div class="carousel-inner" role="listbox">
-                                            <div class="item active">
-                                                <div class="single_says">
-                                                    <div class="customer_comment">
-                                                        <p>
-                                                            Phòng ở đây tiện nghi thoải mái , có nhiều dịch vụ tiện nghi rất thích hợp để nghỉ ngơi thoải mái ở đây
-                                                        </p>
-                                                    </div>
-                                                    <div class="customer_detail clearfix">
-                                                        <div class="customer_pic alignright-20">
-                                                            <a href="#"><img src="img/customer-says-one.png" alt=""></a>
+                                        <ul id="review-list">
+                                            <c:forEach var="i" items="${listReview}">
+                                                <input hidden="" name="reviewId" value="${i.reviewId}">
+                                                <li class="carousel-item" id="review-${i.reviewId}">
+                                                    <div class="single_says">
+                                                        <div class="customer_detail clearfix" style="display: flex; align-items: center;">
+                                                            <div class="customer_pic alignleft">
+                                                                <img class="customer_imgs" src="Views/client/img/default-avt.jpg" alt="">
+                                                            </div>
+                                                            <div class="customer_identity floatright">
+                                                                <h7 class="customer_names">${i.customer.firstName} ${i.customer.lastName}</h7>
+                                                            </div>
                                                         </div>
-                                                        <div class="customer_identity floatright">
-                                                            <h6>Lan nhi</h6>
-                                                            <p>www.lanhi.com</p>
+                                                        <div class="customer_comments">
+                                                            <hr>
+                                                            <p>${i.description}</p>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="single_says">
-                                                    <div class="customer_comment">
-                                                        <p>
-                                                            Phòng ở đây tiện nghi thoải mái , có nhiều dịch vụ tiện nghi rất thích hợp để nghỉ ngơi thoải mái ở đây
-                                                        </p>
-                                                    </div>
-                                                    <div class="customer_detail clearfix">
-                                                        <div class="customer_pic alignright-20">
-                                                            <a href="#"><img src="img/customer-says-one.png" alt=""></a>
-                                                        </div>
-                                                        <div class="customer_identity floatright">
-                                                            <h6>Lan nhi</h6>
-                                                            <p>www.lanhi.com</p>
+                                                        <!-- Thẻ Gỡ Đánh giá -->
+                                                        <div class="remove-review" style="text-align: right">
+                                                            <hr>     
+                                                            <c:if test="${not empty sessionScope.cusObj && sessionScope.cusObj.customerId == i.customer.customerId}">
+                                                                <a href="update_review_cus?reviewId=${i.reviewId}"
+                                                                   style="font-size: 15px; align-content: end; color: red; font-weight: bold">
+                                                                    Sửa
+                                                                </a>
+                                                            </c:if>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Controls -->
-                                        <a class="slider_says left" href="#customer_says_slider" role="button" data-slide="prev">
-                                            <i class="fa fa-angle-left"></i>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="slider_says right" href="#customer_says_slider" role="button" data-slide="next">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end client says slider -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- start contact us area -->
-        <section class="contact_us_area content-left">
-            <div class="container">
-                <div class="contact_us clearfix">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="call clearfix">
-                            <h6>Gọi cho chúng tôi</h6>
-                            <p>123 456 7890</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="email_us clearfix">
-                            <h6>Email của chúng tôi</h6>
-                            <p>info@hotelbooking.com</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="news_letter clearfix">
-                            <input type="text" placeholder="Nhập ID cho Thư Tin tức">
-                            <a href="#" class="btn btn-blue">Đi</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="social_icons clearfix">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end contact us area -->
-
-        <!-- start footer -->
-        <footer class="footer_area">
-            <div class="container">
-                <div class="footer">
-                    <div class="footer_top padding-top-80 clearfix">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="footer_widget">
-                                <div class="footer_logo">
-                                    <a href="#"><img src="img/footer-logo-one.png" alt="img"></a>
-                                </div>
-                                <p>Điều thực sự quan trọng là có một khách hàng tốt, một khách hàng đồng hành. Trong quá trình theo đuổi nỗi đau.</p>
-                                <ul>
-                                    <li>
-                                        <P><i class="fa fa-map-marker"></i>St Amsterdam Phần Lan, <br> Thống kê Hoa Kỳ AKY16 8PN</P>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="row">
-                                <div class="footer_widget clearfix">
-                                    <h5 class="padding-left-15">Đường dẫn nhanh</h5>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <ul>
-                                            <li><a href="#">Phòng</a></li>
-                                            <li><a href="#">Đồ uống thực phẩm</a></li>
-                                            <li><a href="#">Địa điểm bãi biển</a></li>
-                                            <li><a href="#">Tiện nghi</a></li>
-                                        </ul>  
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 sol-sm-6">
-                                        <ul>
-                                            <li><a href="#">Sức khỏe</a></li>
-                                            <li><a href="#">Email</a></li>
-                                            <li><a href="#">Tuyên ngôn</a></li>
-                                            <li><a href="#">Liên hệ</a></li>
+                                                </li>
+                                            </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="footer_widget">
-                                <h5>Chúng tôi toàn cầu</h5>
-                                <div class="footer_map">
-                                    <a href="#"><img src="img/footer-map-two.jpg" alt="img"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="container">
-                            <div class="footer_copyright margin-tb-50 content-center">
-                                <p>© 2015 <a href="#">Đặt phòng khách sạn</a>. Đã đăng ký Bản quyền</p>
-                            </div>
-                        </div>
+                        <!-- Pagination Controls -->
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <c:forEach var="page" begin="1" end="${endPage}">
+                                    <li class="page-item ${page == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="room_type_details?id=${roomType.roomTypeId}&index=${page}">${page}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </nav>
+                        <c:set var="cus" value="${sessionScope.cusObj}"></c:set>
+                        <c:if test="${not empty cus}">
+                            <!-- end client says slider -->
+                            <a href="add_review?roomTypeId=${roomType.roomTypeId}" class="btn btn-create center-block">THÊM ĐÁNH GIÁ</a>
+                        </c:if>
+                        <c:if test="${empty cus}">
+                            <!-- end client says slider -->
+                            <a href="signin" class="btn btn-create center-block">ĐĂNG NHẬP</a>
+                        </c:if>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- end footer -->
-		
-		
-		
+        </div>
+        <jsp:include page="layout/footer.jsp"></jsp:include>
+        <style>
+            .pagination{
+                padding-left: 75px;
+            }
+            ul {
+                list-style: none;
+                margin-top: 0px;
+                padding: 0px;
+            }
+            .section_description {
+                padding: 15px;
+                background-color: #f9f9f9;
+                border-radius: 8px;
+                margin-bottom:10px;
+            }
+
+            .carousel-inner {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .carousel-item {
+                width: 100%;
+                max-width: 650px;
+                margin: 0 auto;
+                transition: transform 0.5s ease;
+            }
+
+            .single_says {
+                padding: 20px;
+                border-radius: 8px;
+                background-color: #fff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                text-align: left;
+            }
+
+            .customer_detail {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+
+            .customer_pic {
+                flex-shrink: 0;
+                margin-right: 15px;
+            }
+
+            .customer_imgs {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .customer_identity {
+                flex-grow: 1;
+            }
+
+            .customer_names {
+                font-size: 1em;
+                font-weight: bold;
+                margin: 0;
+            }
+
+            .customer_comments {
+                font-size: 1em;
+                color: #555;
+            }
+
+            hr {
+                border: 0;
+                height: 1px;
+                background: #ddd;
+                margin: 10px 0;
+            }
+
+        </style>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                window.scrollTo(0, 480);
+            });
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- jquery library -->
-        <script src="js/vendor/jquery-1.11.2.min.js"></script>
+        <script src="Views/client/js/vendor/jquery-1.11.2.min.js"></script>
         <!-- bootstrap -->
-        <script src="js/bootstrap.min.js"></script>
-		
+        <script src="Views/client/js/bootstrap.min.js"></script>
+
         <!-- uikit -->
-        <script src="js/uikit.min.js"></script>
+        <script src="Views/client/js/uikit.min.js"></script>
         <!-- easing -->
-		<script src="js/jquery.easing.1.3.min.js"></script>
-        <script src="js/datepicker.js"></script>
+        <script src="Views/client//js/jquery.easing.1.3.min.js"></script>
+        <script src="Views/client//js/datepicker.js"></script>
         <!-- scroll up -->
-        <script src="js/jquery.scrollUp.min.js"></script>
+        <script src="Views/client//js/jquery.scrollUp.min.js"></script>
         <!-- owlcarousel -->
-        <script src="js/owl.carousel.min.js"></script>
+        <script src="Views/client//js/owl.carousel.min.js"></script>
         <!-- lightslider -->
-        <script src="js/lightslider.js"></script>
+        <script src="Views/client//js/lightslider.js"></script>
         <!-- wow Animation -->
-        <script src="js/wow.min.js"></script>
+        <script src="Views/client//js/wow.min.js"></script>
         <!--Activating WOW Animation only for modern browser-->
         <!--[if !IE]><!-->
-        <script type="text/javascript">new WOW().init();</script>
+        <script type="Views/client/text/javascript">new WOW().init();</script>
         <!--<![endif]-->
 
         <!--Oh Yes, IE 9+ Supports animation, lets activate for IE 9+-->
@@ -642,15 +384,15 @@
 
         <!--Opacity & Other IE fix for older browser-->
         <!--[if lte IE 8]>
-            <script type="text/javascript" src="js/ie-opacity-polyfill.js"></script>
+            <script type="text/javascript" src="Views/client//js/ie-opacity-polyfill.js"></script>
         <![endif]-->
 
 
 
         <!-- my js -->
         <script src="js/main.js"></script>
-		
+
     </body>
 
-<!-- Mirrored from demoxml.com/html/hotelbooking/room-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:20:01 GMT -->
+    <!-- Mirrored from demoxml.com/html/hotelbooking/room-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:20:01 GMT -->
 </html>

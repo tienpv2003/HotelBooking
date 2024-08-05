@@ -5,8 +5,8 @@
 
 package Controllers.Customer;
 
-import DAL.Add_StaffDao;
-import DAL.LoginDAO;
+import DAO.AddStaffDAO;
+import DAO.LoginDAO;
 import Models.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +58,7 @@ public class All_CustumerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        Add_StaffDao l = new Add_StaffDao();
+        AddStaffDAO l = new AddStaffDAO();
         ArrayList<Customer> customers = l.getAllCustomers();
         request.setAttribute("customers", customers);
         request.getRequestDispatcher("Views/admin/all-customer.jsp").forward(request, response);

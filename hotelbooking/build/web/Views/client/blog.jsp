@@ -1,512 +1,206 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
-<html lang="en">
-    
-<!-- Mirrored from demoxml.com/html/hotelbooking/blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:20:03 GMT -->
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Đặt phòng khách sạn</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="icon" href="img/favicon.ico" sizes="16x16">
-
-        <!-- fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Karla:700,400' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
-
-        <!-- fontawesome -->
-		<link rel="stylesheet" href="css/font-awesome.css" />
-
-        <!-- bootstrap -->
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
-
-        <!-- uikit -->
-        <link rel="stylesheet" href="css/uikit.min.css" />
-
-        <!-- animate -->
-        <link rel="stylesheet" href="css/animate.css" />
-        <link rel="stylesheet" href="css/datepicker.css" />
-        <!-- Owl carousel 2 css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
-        <!-- rev slider -->
-        <link rel="stylesheet" href="css/rev-slider/settings.css" />
-        <!-- lightslider -->
-        <link rel="stylesheet" href="css/lightslider.css">
-        <!-- Theme -->
-        <link rel="stylesheet" href="css/reset.css">
-        
-        <!-- custom css -->
-		<link rel="stylesheet" href="style.css" />
-        <!-- responsive -->
-		<link rel="stylesheet" href="css/responsive.css" />
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!-- This Template Is Fully Coded By Aftab Zaman from swiftconcept.com -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-    </head>
-    <body id="blog_page">
-
-        
-        <!-- start header -->
-        <header class="header_area">
-
-            <!-- start header top -->
-            <div class="header_top_area">
-                <div class="container">
-                    <div class="row">
-                        <div class="header_top clearfix">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                <div class="left_header_top">
-                                    <ul>
-                                        <li><a href="#"><img src="img/temp-icon.png" alt="temp-icon">London dc, GR 17°C</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 floatright">
-                                <div class="right_header_top clearfix floatright">
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li class="">
-                                            <a class="border-right-dark-4" href="#">Đăng nhập</a></li>
-                                        <li role="presentation" class="dropdown">
-                                            <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                              Đăng kí
-                                              <span class="caret"></span>
-                                            </a>
-                                            <!-- <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                            </ul> -->
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end header top  -->
-
-            <!-- start main header -->
-            <div class="main_header_area">
-                <div class="container">
-                    <!-- start mainmenu & logo -->
-                    <div class="mainmenu">
-                        <div id="nav">
-                            <nav class="navbar navbar-default">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">Chuyển đổi điều hướng thành</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                  </button>
-                                  <div class="site_logo fix">
-                                      <a id="brand" class="clearfix navbar-brand" href="index.html"><img src="img/site-logo.png" alt="Trips"></a>
-                                      <!-- <div class="header_login floatleft">
-                                          <ul>
-                                              <li><a href="#">Login</a></li>
-                                              <li><a href="#">Register</a></li>
-                                          </ul>
-                                      </div>   -->         
-                                  </div>
-                                </div>
-
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                                  <ul class="nav navbar-nav">
-                                    <li role="presentation" class="dropdown">
-                                        <a id="drop-one" href="index.html" class="dropdown-toggle">
-                                          Trang chủ
-                                        </a>
-                                        <!-- <ul id="menu1" class="dropdown-menu" role="menu">
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="index-two.html">Home Page two</a></li>
-                                        </ul> -->
-                                    </li>        
-                                    <li><a href="accomodation.html">Chỗ ở</a></li>
-                                    <li><a href="gallery.html">Phòng trưng bày</a></li>
-                                    <li role="presentation" class="dropdown">
-                                        <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                            Đặc trưng
-                                        </a>
-                                        <ul id="menu2" class="dropdown-menu" role="menu">Chỗ ở
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="about-us.html">Về chúng tôi</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="booking.html">Đặt trước</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="room-details.html">Chi tiết phòng</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="staff.html">Nhân viên của chúng tôi</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="404.html">404 Page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog.html">Tin tức</a></li>
-                                    <li><a href="contact-us.html">Liên hệ</a></li>
-                                  </ul>
-                                  <div class="emergency_number">
-                                      <a href="tel:1234567890"><img src="img/call-icon.png" alt="">123 456 7890</a>
-                                  </div>
-                                </div><!-- /.navbar-collapse -->
-                            </nav>
-                        </div>
-                    </div>
-                    <!-- end mainmenu and logo -->
-                </div>
-            </div>
-            <!-- end main header -->
-
-        </header>
-        <!-- end header -->
-        
+<html lang="vi">
+    <jsp:include page="layout/header.jsp"></jsp:include>
         <!-- start breadcrumb -->
         <section class="breadcrumb_main_area margin-bottom-80">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="breadcrumb_main nice_title">
-                        <h2>Tin tức</h2>
-                        <!-- special offer start -->
-                        <div class="special_offer_main">
-                            <div class="container">
-                                <div class="special_offer_sub">
-                                    <img src="img/special-offer-yellow-main.png" alt="imf">
-                                </div>
-                            </div>
-                        </div>         
-                        <!-- end offer start -->
+                    <div class="breadcrumb_main" style="
+                         padding-top: 20px;
+                         padding-bottom: 0px;
+                         ">
+                        <h2 style="color: #313a45">Tin tức</h2>
                     </div>
                 </div>
             </div>            
         </section>
-        <!-- end breadcrunb -->
-        
+        <!-- end breadcrumb -->
+
         <section class="blog_area">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="row">
-							<div class="clearfix blog_inner" data-uk-grid>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style1">
-										<div class="style_blog_img_box">
-											<img src="img/blog-pic1.jpg" alt="img" />
-											<a class="style_b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="at_love"><i class="fa fa-heart"></i></div>
-										<div class="blog_text_box">
-											<h5>Dịch vụ nhà hàng mở cửa </h5>
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style2">
-										<div class="blog_img_box">
-											<a href="#">http:// themeforest.net/users/wpmines</a>
-											<a class="b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style1">
-										<div class="style_blog_img_box">
-											<img src="img/blog-pic3.jpg" alt="img" />
-											<a class="style_b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<h5>Dịch vụ nhà hàng mở cửa </h5>
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style2">
-										<div class="blog_img_box">
-											<a href="#">http:// themeforest.net/users/wpmines</a>
-											<a class="b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style1">
-										<div class="style_blog_img_box">
-											<img src="img/blog-pic4.jpg" alt="" />
-											<a class="style_b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<h5>Dịch vụ nhà hàng mở cửa </h5>
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style2">
-										<div class="blog_img_box">
-											<a href="#">http:// themeforest.net/users/wpmines</a>
-											<a class="b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style1">
-										<div class="style_blog_img_box">
-											<img src="img/blog-pic5.jpg" alt="" />
-											<a class="style_b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<h5>Dịch vụ nhà hàng mở cửa </h5>
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style1">
-										<div class="style_blog_img_box">
-											<img src="img/blog-pic7.jpg" alt="" />
-											<a class="style_b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<h5>Dịch vụ nhà hàng mở cửa </h5>
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-								<div class="margin-bottom-30 col-md-4 col-sm-6 col-xs-12">
-									<div class="single_blog_style1">
-										<div class="style_blog_img_box">
-											<img src="img/blog-pic6.jpg" alt="" />
-											<a class="style_b_link" href="#"><i class="fa fa-link"></i></a>
-										</div>
-										<div class="blog_text_box">
-											<h5>Dịch vụ nhà hàng mở cửa </h5>
-											<ul class="clearfix">
-												<li><a href="#">Bởi quản trị viên  |</a></li>
-												<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-												<li><a href="#">3 Bình luận</a></li>
-											</ul>
-											<p>Đôi khi là lớp lớp của cuộc đời người lao động. Vì anh ta đầu tư thoải mái nhưng gánh nặng không được khấu trừ.</p>
-											<a href="single-blog.html">Đọc thêm</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="load_more">
-										<a href="#">Tải thêm</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-        <!-- start contact us area -->
-        <section class="contact_us_area content-left">
             <div class="container">
-                <div class="contact_us clearfix">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="call clearfix">
-                            <h6>Gọi cho chúng tôi</h6>
-                            <p>123 456 7890</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="email_us clearfix">
-                            <h6>Gửi email cho chúng tôi</h6>
-                            <p>info@hotelbooking.com</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="news_letter clearfix">
-                            <input type="text" placeholder="Nhập ID cho Thư Tin tức">
-                            <a href="#" class="btn btn-blue">Đi</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="social_icons clearfix">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="clearfix blog_inner" data-uk-grid>
+                            <c:forEach items="${listNews}" var="news">
+                                <c:if test="${news.status == 'active'}">
+                                    <div class="col-md-4 col-sm-6 col-xs-12 margin-bottom-30">
+                                        <div class="single_blog_style1">
+                                            <div class="style_blog_img_box">
+                                                <img src="Views/admin/assets/img/product/${news.img}" alt="img" class="responsive-img" />
+                                                <a class="style_b_link" href="#"><i class="fa fa-link"></i></a>
+                                            </div>
+                                            <div class="at_love"><i class="fa fa-heart"></i></div>
+                                            <div class="blog_text_box">
+                                                <h5>${news.title}</h5>
+                                                <ul class="clearfix">
+                                                    <li>Bởi 
+                                                        <c:choose>
+                                                            <c:when test="${fn:contains(news.staff.email, '@')}">
+                                                                ${fn:substringBefore(news.staff.email, '@')}
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${news.staff.email}
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        |
+                                                    </li>
+                                                    <li>${news.createDate}  |</li>
+                                                </ul>
+                                                <p>${news.description}</p>
+                                                <a href="news_detail_customer?newId=${news.newsId}">Đọc thêm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- end contact us area -->
+    </section>
+    <jsp:include page="layout/footer.jsp"></jsp:include>
+    <style>
+        /* Existing Styles */
+        .breadcrumb_main_area {
+            margin-bottom: 80px;
+        }
 
-        
-    
-        <!-- start footer -->
-        <footer class="footer_area">
-            <div class="container">
-                <div class="footer">
-                    <div class="footer_top padding-top-80 clearfix">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="footer_widget">
-                                <div class="footer_logo">
-                                    <a href="#"><img src="img/footer-logo-one.png" alt=""></a>
-                                </div>
-                                <p>Điều thực sự quan trọng là có một khách hàng tốt, một khách hàng đồng hành. Trong quá trình theo đuổi nỗi đau.</p>
-                                <ul>
-                                    <li>
-                                        <P><i class="fa fa-map-marker"></i>St Amsterdam Phần Lan, <br> Thống kê Hoa Kỳ AKY16 8PN</P>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="row">
-                                <div class="footer_widget clearfix">
-                                    <h5 class="padding-left-15">Đường dẫn nhanh</h5>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <ul>
-                                            <li><a href="#">Phòng</a></li>
-                                            <li><a href="#">Đồ uống thực phẩm</a></li>
-                                            <li><a href="#">Địa điểm bãi biển</a></li>
-                                            <li><a href="#">Tiện nghi</a></li>
-                                        </ul>  
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 sol-sm-6">
-                                        <ul>
-                                            <li><a href="#">Sức khỏe</a></li>
-                                            <li><a href="#">Email</a></li>
-                                            <li><a href="#">Tuyên ngôn</a></li>
-                                            <li><a href="#">Liên hệ</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="footer_widget">
-                                <h5>Chúng tôi toàn cầu</h5>
-                                <div class="footer_map">
-                                    <a href="#"><img src="img/footer-map-two.jpg" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="container">
-                            <div class="footer_copyright margin-tb-50 content-center">
-                                <p>© 2015 <a href="#">Đặt phòng khách sạn</a>. Đã đăng ký Bản quyền</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- end footer -->
-		
-		
-		
-        <!-- jquery library -->
-        <script src="js/vendor/jquery-1.11.2.min.js"></script>
-        <!-- bootstrap -->
-        <script src="js/bootstrap.min.js"></script>
-		
-        <!-- uikit -->
-        <script src="js/uikit.min.js"></script>
-        <script src="js/grid.js"></script>
-        <!-- easing -->
-		<script src="js/jquery.easing.1.3.min.js"></script>
-        <script src="js/datepicker.js"></script>
-        <!-- scroll up -->
-        <script src="js/jquery.scrollUp.min.js"></script>
-        <!-- owlcarousel -->
-        <script src="js/owl.carousel.min.js"></script>
-        <!-- lightslider -->
-        <script src="js/lightslider.js"></script>
-        <!-- wow Animation -->
-        <script src="js/wow.min.js"></script>
-        <!--Activating WOW Animation only for modern browser-->
-        <!--[if !IE]><!-->
-        <script type="text/javascript">new WOW().init();</script>
-        <!--<![endif]-->
+        .breadcrumb_main img {
+            width: 100%;
+            height: auto;
+        }
 
-        <!--Oh Yes, IE 9+ Supports animation, lets activate for IE 9+-->
-        <!--[if gte IE 9]>
-            <script type="text/javascript">new WOW().init();</script>
-        <![endif]-->         
+        .margin-bottom-30 {
+            margin-bottom: 30px;
+        }
 
-        <!--Opacity & Other IE fix for older browser-->
-        <!--[if lte IE 8]>
-            <script type="text/javascript" src="js/ie-opacity-polyfill.js"></script>
-        <![endif]-->
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
+        /* Enhanced Styles */
+        .single_blog_style1 {
+            border: 1px solid #ededed;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
 
+        .single_blog_style1:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-        <!-- my js -->
-        <script src="js/main.js"></script>
-		
-    </body>
+        .style_blog_img_box {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Set a consistent height for all images */
+            overflow: hidden;
+            flex-shrink: 0;
+        }
 
-<!-- Mirrored from demoxml.com/html/hotelbooking/blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:20:05 GMT -->
+        .style_blog_img_box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .style_blog_img_box:hover img {
+            transform: scale(1.1);
+        }
+
+        .style_b_link {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .style_b_link:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .at_love {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #fe5d5d;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        .blog_text_box {
+            padding: 15px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .blog_text_box h5 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .blog_text_box ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .blog_text_box ul li {
+            display: inline;
+            margin-right: 5px;
+        }
+
+        .blog_text_box p {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .blog_text_box a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            align-self: flex-end;
+            transition: color 0.3s ease;
+        }
+
+        .blog_text_box a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .responsive-img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+    </style>
 </html>

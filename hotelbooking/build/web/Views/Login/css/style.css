@@ -467,8 +467,8 @@ pre {
 
 .container-fluid {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0;
+  padding-left: 0;
   margin-right: auto;
   margin-left: auto; }
 
@@ -3851,6 +3851,7 @@ input[type="button"].btn-block {
 
 .card-img {
   width: 100%;
+  height: 80%;
   border-radius: calc(0.25rem - 1px); }
 
 .card-img-top {

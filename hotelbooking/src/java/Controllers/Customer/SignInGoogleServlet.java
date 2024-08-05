@@ -4,7 +4,7 @@
  */
 package Controllers.Customer;
 
-import DAL.CustomerDAO;
+import DAO.CustomerDAO;
 import Models.Customer;
 import Models.UserGoogle;
 import com.google.gson.Gson;
@@ -44,12 +44,12 @@ public class SignInGoogleServlet extends HttpServlet {
             System.out.println(insertStatus);
             if (insertStatus) {
                 request.getSession().setAttribute("userGoogle", newCustomer);
-                request.getRequestDispatcher("Views/index.jsp").forward(request, response);
+                request.getRequestDispatcher("home").forward(request, response);
         }
     }else {
             // User exists, log them in
             request.getSession().setAttribute("userGoogle", existingCustomer);
-            request.getRequestDispatcher("Views/index.jsp").forward(request, response);
+            request.getRequestDispatcher("home").forward(request, response);
         }
     }
 

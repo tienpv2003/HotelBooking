@@ -43,7 +43,7 @@
                 padding: 10px 20px;
             }
             body {
-                background-image: url('Views/img/chot.jpg');
+                background-image: url('Views/Login/img/chot.jpg');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -62,7 +62,7 @@
                     <div class="col-md-7 col-lg-5">
                         <div class="login-wrap p-4 p-md-5">
                             <div class="icon d-flex align-items-center justify-content-center">
-                                <img src="Views/img/logo_chot.jpg" alt="Logo" style="width: auto; height: 100px;">
+                                <img src="Views/Login/img/logo-chot.jpg" alt="Logo" style="width: auto; height: 100px;">
                             </div>
                             <h3 class="text-center mb-4" style=" font-weight: bold;">Quên mật khẩu</h3>
                             <form action="ForgotServlet" method="post" class="login-form">

@@ -4,7 +4,7 @@
  */
 package Controllers.Customer;
 
-import DAL.CustomerDAO;
+import DAO.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

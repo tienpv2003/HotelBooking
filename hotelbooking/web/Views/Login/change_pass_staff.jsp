@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="Views/Login/css/style.css">
         <style>
             body {
-                background-image: url('Views/img/chot.jpg');
+                background-image: url('Views/Login/img/chot.jpg');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -34,22 +34,29 @@
                     <div class="col-md-7 col-lg-5">
                         <div class="login-wrap p-4 p-md-5">
                             <div class="icon d-flex align-items-center justify-content-center">
-                                <img src="Views/img/logo_chot.jpg" alt="Logo" style="width: auto; height: 100px;">
+                                <img src="Views/Login/img/logo-chot.jpg" alt="Logo" style="width: auto; height: 100px;">
                             </div>
-                            <h3 class="text-center mb-4">Đổi mật khẩu nhân viên</h3>                     
+                            <h3 class="text-center mb-4" style="font-weight: bold">Đổi mật khẩu nhân viên</h3>                     
                             <form action="change_pass_staff" class="login-form" method="post">
-                                <h5 style="color: red">${param.message}</h5>
-                                <h5 style="color: red">${requestScope.message}</h5>
+
+                                <c:if test="${not empty param.message1}">
+
+                                    <div class="alert alert-danger">${param.message1}</div>
+                                </c:if>  
+
+                                <c:if test="${not empty message}">
+                                    <div class="alert alert-success">${message}</div>
+                                </c:if>
                                 <div class="form-group">
-                                    <input type="text" class="form-control rounded-left" placeholder="Enter Old password" required name="opass">   
+                                    <input type="password" class="form-control rounded-left" placeholder="Enter Old password" required name="opass">   
                                     <input type="hidden" name="email" value="${requestScope.email}">
                                     <input type="hidden" name="encodedCaptcha" value="${requestScope.encodedCaptcha}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control rounded-left" placeholder="Nhập mật khẩu mới" required name="password">
+                                    <input type="password" class="form-control rounded-left" placeholder="Nhập mật khẩu mới" required name="password">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control rounded-left" placeholder="Xác nhận mật khẩu mới" required name="passworda">
+                                    <input type="password" class="form-control rounded-left" placeholder="Xác nhận mật khẩu mới" required name="passworda">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit"

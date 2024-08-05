@@ -1,605 +1,375 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
-<html lang="en">
-    
-<!-- Mirrored from demoxml.com/html/hotelbooking/single-blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:20:05 GMT -->
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Đặt phòng khách sạn |Chi tiết tin tức</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <title>Chi Tiết Blog</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Gửi form bình luận hiện tại
+                $('#commentForm').submit(function (event) {
+                    event.preventDefault(); // Ngăn chặn biểu mẫu gửi theo cách truyền thống
+                    $.ajax({
+                        type: 'POST',
+                        url: 'add_comment', // URL của servlet để xử lý thêm bình luận
+                        data: $(this).serialize(), // Tuần tự hóa dữ liệu biểu mẫu
+                        success: function (response) {
+                            if (response.status === 'success') {
+                                // Xử lý khi chèn bình luận thành công, ví dụ: cập nhật khu vực bình luận
+                                $('#commentSection').prepend(
+                                        '<li>' +
+                                        '<div class="comment_container">' +
+                                        '<div class="comment">' +
+                                        '<div class="com_author_photo">' +
+                                        '<img src="Views/client/img/default-avt.jpg" alt="">' +
+                                        '</div>' +
+                                        '<div class="col-md-12 col-sm-12">' +
+                                        '<div class="comment_details">' +
+                                        '<h3>' + response.customerName + '<span class="comm_time">' + response.commentDate + '</span></h3>' +
+                                        '<p>' + response.content + '</p>' +
+                                        '<a href="#" class="reply-button" data-comment-id="' + response.commentId + '">Hồi đáp</a>' +
+                                        (response.isOwner ? '<a href="delete_comment_customer?commentId=' + response.commentId + '" class="reply delete-comment" data-comment-id="' + response.commentId + '">| Gỡ bình luận</a>' : '') +
+                                        '<div class="reply-form" style="display: none;">' +
+                                        '<form class="replyCommentForm" method="post" action="add_reply">' +
+                                        '<input type="hidden" name="commentId" value="' + response.commentId + '">' +
+                                        '<textarea name="replyContent" onkeyup="textAreaAdjust(this)" style="overflow:hidden; resize: none; width: 100%" rows="2" cols="30" placeholder="Nhập nội dung hồi đáp..."></textarea>' +
+                                        '<input type="submit" value="Gửi">' +
+                                        '</form></div>' +
+                                        '<div class="replyContainer"></div>' +
+                                        '</div></div></div></div></li>'
+                                        );
+                                $('#content').val(''); // Xóa nội dung input bình luận
+                            } else {
+                                // Xử lý khi thất bại
+                                alert('Vui lòng nhập bình luận có nội dung.');
+                            }
+                        },
+                        error: function () {
+                            alert('Đã có lỗi xảy ra, vui lòng thử lại.');
+                        }
+                    });
+                });
+                // Gửi form hồi đáp
+                $(document).on('submit', '.replyCommentForm', function (event) {
+                    event.preventDefault();
+                    var form = $(this);
+                    var formData = {
+                        commentId: form.find('input[name="commentId"]').val(),
+                        replyContent: form.find('textarea[name="replyContent"]').val()
+                    };
+                    $.ajax({
+                        url: form.attr("action"),
+                        type: form.attr("method"),
+                        data: formData,
+                        success: function (response) {
+                            if (response.trim() === "error") {
+                                alert("Vui lòng nhập bình luận có nội dung.");
+                            } else {
+                                form.closest('.comment_details').find('.replyContainer').append(response);
+                                form.closest('.reply-form').hide();
+                                form.find('textarea[name="replyContent"]').val('');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert("loi");
+                        }
+                    });
+                });
+                // Xóa reply 
+                $(document).on('click', '.delete-reply', function (event) {
+                    event.preventDefault();
+                    var replyId = $(this).data('reply-id');
+                    var commentId = $(this).data('comment-id');
+                    var replyElement = $(this).closest('li');
 
-        <link rel="icon" href="img/favicon.ico" sizes="16x16">
+                    $.ajax({
+                        url: 'delete_reply_customer',
+                        type: 'GET',
+                        data: {replyId: replyId, commentId: commentId},
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status === 'success') {
+                                replyElement.remove();
+                            } else {
+                                alert('Failed to delete');
+                            }
+                        },
+                        error: function () {
+                            alert('Khong xoa dc thu lai');
+                        }
+                    });
+                });
+                // Xoa hoi dap
+                $(document).on('click', '.delete-comment', function (event) {
+                    event.preventDefault();
+                    var commentId = $(this).data('comment-id');
+                    var commentElement = $(this).closest('li');
 
-        <!-- fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Karla:700,400' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
+                    $.ajax({
+                        url: 'delete_comment_customer',
+                        type: 'GET',
+                        data: {commentId: commentId},
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status === 'success') {
+                                commentElement.remove();
+                            } else {
+                                alert('Failed to delete');
+                            }
+                        },
+                        error: function () {
+                            alert('Khong xoa dc');
+                        }
+                    });
+                });
 
-        <!-- fontawesome -->
-		<link rel="stylesheet" href="css/font-awesome.css" />
+                // Ẩn/hiện form hồi đáp
+                $(document).on('click', '.reply-button', function (event) {
+                    event.preventDefault();
+                    $(this).closest('.comment_details').find('.reply-form').toggle();
+                });
+            });
+        </script>
 
-        <!-- bootstrap -->
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <script>
+            function textAreaAdjust(element) {
+                element.style.height = "1px";
+                element.style.height = (25 + element.scrollHeight) + "px";
+            }
+        </script>
 
-        <!-- uikit -->
-        <link rel="stylesheet" href="css/uikit.min.css" />
+        <script>
+            function showComments() {
+                // get items have class name is see_more_item
+                const commentSections = document.querySelectorAll(".see_more_item");
+                const seeMoreBtn = document.getElementById('seeMoreBtn');
+                const seeLessBtn = document.getElementById('seeLessBtn');
+                commentSections.forEach(function (section) {
+                    section.classList.remove('display_none');
+                });
+                seeMoreBtn.classList.add('display_none');
+                seeLessBtn.classList.remove('display_none');
+            }
 
-        <!-- animate -->
-        <link rel="stylesheet" href="css/animate.css" />
-        <link rel="stylesheet" href="css/datepicker.css" />
-        <!-- Owl carousel 2 css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
-        <!-- lightslider -->
-        <link rel="stylesheet" href="css/lightslider.css">
-        <!-- Theme -->
-        <link rel="stylesheet" href="css/reset.css">
-        
-        <!-- custom css -->
-		<link rel="stylesheet" href="style.css" />
-        <!-- responsive -->
-		<link rel="stylesheet" href="css/responsive.css" />
+            function hideComments() {
+                // get items have class name is see_more_item
+                const commentSections = document.querySelectorAll(".see_more_item");
+                const seeMoreBtn = document.getElementById('seeMoreBtn');
+                const seeLessBtn = document.getElementById('seeLessBtn');
+                commentSections.forEach(function (section) {
+                    section.classList.add('display_none');
+                });
+                seeMoreBtn.classList.remove('display_none');
+                seeLessBtn.classList.add('display_none');
+            }
+        </script>
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!-- This Template Is Fully Coded By Aftab Zaman from swiftconcept.com -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <script>
+            const commentSections = document.querySelectorAll(".see_more_item");
 
+
+        </script>
     </head>
-    <body id="single_blog_page">
+    <body>
+        <jsp:include page="layout/header.jsp"></jsp:include>
+            <!-- start breadcrumb -->
+            <section class="breadcrumb_main_area margin-bottom-80">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="breadcrumb_main" style="padding-top: 20px; padding-bottom: 0px;">
+                            <h2 style="color: #313a45">Tin tức</h2>
+                        </div>
+                    </div>
+                </div>            
+            </section>
+            <!-- end breadcrumb -->
 
-        
-        <!-- start header -->
-        <header class="header_area">
-
-            <!-- start header top -->
-            <div class="header_top_area">
+            <!-- start single blog section -->
+            <section class="single_blog_area margin-bottom-150">
                 <div class="container">
                     <div class="row">
-                        <div class="header_top clearfix">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                <div class="left_header_top">
-                                    <ul>
-                                        <li><a href="#"><img src="img/temp-icon.png" alt="temp-icon">Luân Đôn, GR 17°C</a></li>
-                                    </ul>
+                        <div class="col-md-8">
+                            <div class="single_blog_post_area">
+                                <div class="sing_blog_photo">
+                                    <img src="img/sing_blog_photo_1.jpg" alt="">
+                                    <i class="fa fa-heart top"></i>
+                                    <i class="fa fa-picture-o bottom"></i>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 floatright">
-                                <div class="right_header_top clearfix floatright">
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li class="">
-                                            <a class="border-right-dark-4" href="#">Đăng nhập</a></li>
-                                        <li role="presentation" class="dropdown">
-                                            <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                              Đăng kí
-                                              <span class="caret"></span>
-                                            </a>
-                                            <!-- <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                            </ul> -->
+                            <c:set var="d" value="${newsDetail}"></c:set>
+                                <div class="sing_blog_content">
+                                    <div class="sing_blog_heading">
+                                        <h2>${d.news.title}</h2>
+                                    <ul>
+                                        <li>Bởi  
+                                            <c:choose>
+                                                <c:when test="${fn:contains(d.news.staff.email, '@')}">
+                                                    ${fn:substringBefore(d.news.staff.email, '@')}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${d.news.staff.email}
+                                                </c:otherwise>
+                                            </c:choose>
                                         </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end header top  -->
-
-            <!-- start main header -->
-            <div class="main_header_area">
-                <div class="container">
-                    <!-- start mainmenu & logo -->
-                    <div class="mainmenu">
-                        <div id="nav">
-                            <nav class="navbar navbar-default">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">Chuyển đổi điều hướng thành</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                  </button>
-                                  <div class="site_logo fix">
-                                      <a id="brand" class="clearfix navbar-brand" href="index.html"><img src="img/site-logo.png" alt="Trips"></a>
-                                      <!-- <div class="header_login floatleft">
-                                          <ul>
-                                              <li><a href="#">Login</a></li>
-                                              <li><a href="#">Register</a></li>
-                                          </ul>
-                                      </div>   -->         
-                                  </div>
-                                </div>
-
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                                  <ul class="nav navbar-nav">
-                                    <li role="presentation" class="dropdown">
-                                        <a id="drop-one" href="index.html" class="dropdown-toggle">
-                                          Trang chủ
-                                        </a>
-                                        <!-- <ul id="menu1" class="dropdown-menu" role="menu">
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="index-two.html">Home Page two</a></li>
-                                        </ul> -->
-                                    </li>        
-                                    <li><a href="accomodation.html">Chỗ ở</a></li>
-                                    <li><a href="gallery.html">Phòng trưng bày</a></li>
-                                    <li role="presentation" class="dropdown">
-                                        <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                            Đặc trưng
-                                        </a>
-                                        <ul id="menu2" class="dropdown-menu" role="menu">Chỗ ở
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="about-us.html">Về chúng tôi</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="booking.html">Đặt trước</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="room-details.html">Chi tiết phòng</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="staff.html">Nhân viên của chúng tôi</a></li>
-                                          <li role="presentation"><a role="menuitem" tabindex="-1" href="404.html">404 Page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog.html">Tin tức</a></li>
-                                    <li><a href="contact-us.html">Liên hệ</a></li>
-                                  </ul>
-                                  <div class="emergency_number">
-                                      <a href="tel:1234567890"><img src="img/call-icon.png" alt="">123 456 7890</a>
-                                  </div>
-                                </div><!-- /.navbar-collapse -->
-                            </nav>
-                        </div>
-                    </div>
-                    <!-- end mainmenu and logo -->
-                </div>
-            </div>
-            <!-- end main header -->
-
-        </header>
-        <!-- end header -->
-        
-        <!-- start breadcrumb -->
-        <section class="breadcrumb_main_area margin-bottom-80">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="breadcrumb_main nice_title">
-                        <h2>Chi tiết tin tức</h2>
-                        <!-- special offer start -->
-                        <div class="special_offer_main">
-                            <div class="container">
-                                <div class="special_offer_sub">
-                                    <img src="img/special-offer-yellow-main.png" alt="imf">
-                                </div>
-                            </div>
-                        </div>         
-                        <!-- end offer start -->
-                    </div>
-                </div>
-            </div>            
-        </section>
-        <!-- end breadcrunb -->
-
-        <!-- start single blog section -->
-        <section class="single_blog_area margin-bottom-150">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="single_blog_post_area">
-                            <div class="sing_blog_photo">
-                                <img src="img/sing_blog_photo_1.jpg" alt="">
-                                <i class="fa fa-heart top"></i>
-                                <i class="fa fa-picture-o bottom"></i>
-                            </div>
-                            <div class="sing_blog_content">
-                                <div class="sing_blog_heading">
-                                    <h2>Dịch vụ nhà hàng mở cửa </h2>
-                                    <ul>
-                                        <li><a href="#">Bởi quản trị viên  |</a></li>
-										<li><a href="#">Ngày 3 tháng 1 năm 2015  |</a></li>
-										<li><a href="#">3 Bình luận</a></li>
+                                        <li>${d.news.createDate}</li>
                                     </ul>
                                 </div>
                                 <div class="sing_blog_post_cont">
-                                    <p>Phasellus đôi khi xếp chồng lên cuộc đời của một nhân viên. Nhưng đối với các nhà đầu tư bất động sản, không phải bản thân Lorem là quan trọng nhất, anh sẽ được các nhà phát triển tài năng theo đuổi. Điều quan trọng nhất là nó mang tính sinh thái. Ngay cả thị trường mục tiêu cũng mang tính vĩ mô và sinh thái. Thung lũng của thung lũng là một yếu tố mềm mại. Ngày mai đất nước cần bóng rổ và hãng hàng không trước đó. Làm bài tập về nhà khi còn là học sinh hoặc sinh viên. Morbi aquilet ullamcorper turpis và politoris. </p>
-                                    <p>Vì anh ấy đầu tư miễn phí, chứ không phải bản thân Lorem là người quan trọng nhất, anh ấy sẽ được theo sau bởi giới thượng lưu đang thèm muốn. Điều quan trọng nhất là nó mang tính sinh thái. Ngay cả thị trường mục tiêu cũng mang tính vĩ mô và sinh thái. Thung lũng của thung lũng là một yếu tố mềm mại. Ngày mai đất nước cần bóng rổ và hãng hàng không trước đó. Làm bài tập về nhà khi còn là học sinh hoặc sinh viên. </p>
-                                    <p>Mauris và tuyên truyền bất kỳ hồ nào trong mùa mềm. Aenean buồn vulputate sapien không ultrices. Toàn bộ chiến dịch là trong sạch, tiền đình và tiền đình và không có gì, đường đi ngoại trừ tiếng cười. Duis dapibusosuere nếu không, và đó chính là lý do khiến cung bị thương.</p>
-                                    <blockquote>Đây là thời điểm tốt để nói về những gì đang xảy ra. Aenean buồn vulputate sapien không ultrices. Toàn bộ chiến dịch là trong sạch, tiền đình và tiền đình và không có gì, đường đi ngoại trừ tiếng cười.</blockquote>
+                                    <blockquote>${d.news.title}</blockquote>
                                     <p>
-                                    <img src="img/sing_blog_photo_2.jpg" class="floatleft" alt="">
-                                    <span class="side-img">Nhưng đối với các nhà đầu tư bất động sản, không phải bản thân Lorem là quan trọng nhất, anh sẽ được các nhà phát triển tài năng theo đuổi. Điều quan trọng nhất là nó mang tính sinh thái. Ngay cả tiền đình cũng nhắm vào kẻ tấn công Eporttitor ở phía trước.</span> </p>
-                                    <p>Nhưng đối với các nhà đầu tư bất động sản, không phải bản thân Lorem là quan trọng nhất, anh sẽ được các nhà phát triển tài năng theo đuổi. Điều quan trọng nhất là nó mang tính sinh thái. Ngay cả thị trường mục tiêu cũng mang tính vĩ mô và sinh thái. Thung lũng của thung lũng là một yếu tố mềm mại. Ngày mai đất nước cần bóng rổ và hãng hàng không trước đó. Làm bài tập về nhà khi còn là học sinh hoặc sinh viên. </p>
-                                    <p>Tag: <span class="tag"> lorem, tự, món ăn, công thức</span></p>
-                                </div>
-                                <div class="related_post">
-                                    <h2>Bài liên quan</h2>
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4">
-                                            <div class="sing_related_post">
-                                                <h3><a href="#">Tiêu đề ở đây</a></h3>
-                                                <p>Trên<span>"chính internet"</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-4">
-                                            <div class="sing_related_post">
-                                                <h3><a href="#">Tiêu đề ở đây</a></h3>
-                                                <p>Trên<span>"chính internet"</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-4">
-                                            <div class="sing_related_post">
-                                                <h3><a href="#">Tiêu đề ở đây</a></h3>
-                                                <p>Trên<span>"chính internet"</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sing_blog_post_nav">
-                                    <a href="#" class="">Previous post</a>
-                                    <a href="#" class="floatright">Next post</a>
-                                </div>
-                                <div class="single_post_author_area">
-                                    <div class="row">
-                                        <div class="col-md-3 col-sm-3">
-                                            <div class="author_photo">
-                                                <img alt="" src="img/author_photo.jpg">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9 col-sm-9">
-                                            <div class="author_details">
-                                                <h2>John Deo</h2>
-                                                <h3>Tác giả</h3>
-                                                <p>Nhưng cũng là một người khôn ngoan. Một số người laoreet bây giờ ghét nó, đó là imperdiet mauris auctor in. Để euismod buồn, hãy để euismod felis. Mỗi chiếc xe tải không có tác giả justmauris trong đó. </p>
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <img src="Views/admin/assets/img/product/${d.news.img}" class="floatleft" alt="">
+                                    </p>
+                                    <p>${d.content}</p>
                                 </div>
                                 <div class="single_post_comment_area">
-                                    <h2>(4)  Bình luận</h2>
-                                    <ul class="coments">
-                                        <li>
-                                            <div class="col-md-2 padding-0 col-sm-2">
-                                                <div class="com_author_photo">
-                                                    <img src="img/comment_photo_1.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-10 col-sm-10">
-                                                <div class="comment_details">
-                                                    <h3>Nishant Deo <span class="comm_time">ngày 12 tháng 4 năm 2015,  2 ngày trước </span></h3>
-                                                    <p>Chúng ta hãy sống ai đang than khóc. Cho đến yếu tố thời gian. Fusce aculis tempor eget felis escit Sed eget fringilla lacus. Trong yếu tố buồn của thời rung động.</p>
-                                                    <a href="#" class="reply">Hồi đáp</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="col-md-2 padding-0 col-sm-2">
-                                                <div class="com_author_photo">
-                                                    <img src="img/comment_photo_2.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-10 col-sm-10">
-                                                <div class="comment_details">
-                                                    <h3>Abhay Mishra<span class="comm_time">ngày 12 tháng 4 năm 2015,  2 ngày trước </span></h3>
-                                                    <p>Chúng ta hãy sống ai đang than khóc. Cho đến yếu tố thời gian. Fusce aculis tempor eget felis escit Sed eget fringilla lacus. Trong yếu tố buồn của thời rung động.</p>
-                                                    <a href="#" class="reply">Hồi đáp</a>
-                                                </div>
-                                            </div>
-                                            <ul>
-                                                <li>
-                                                    <div class="col-md-2 padding-0 col-sm-2">
-                                                        <div class="com_author_photo">
-                                                            <img src="img/comment_photo_3.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-10 col-sm-10">
-                                                        <div class="comment_details">
-                                                            <h3>Nishi Dhavan<span class="comm_time">ngày 12 tháng 4 năm 2015,  2 ngày trước </span></h3>
-                                                            <p>Chúng ta hãy sống ai đang than khóc. Cho đến yếu tố thời gian. Fusce aculis tempor eget felis escit Sed eget fringilla lacus. Trong yếu tố buồn của thời rung động.</p>
-                                                            <a href="#" class="reply">Hồi đáp</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <div class="col-md-2 padding-0 col-sm-2">
-                                                <div class="com_author_photo">
-                                                    <img src="img/comment_photo_4.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-10 col-sm-10">
-                                                <div class="comment_details">
-                                                    <h3>Vikram Nob<span class="comm_time">ngày 12 tháng 4 năm 2015,  2 ngày trước </span></h3>
-                                                    <p>Chúng ta hãy sống ai đang than khóc. Cho đến yếu tố thời gian. Fusce aculis tempor eget felis escit Sed eget fringilla lacus. Trong yếu tố buồn của thời rung động.</p>
-                                                    <a href="#" class="reply">Hồi đáp</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <h2>Bình luận</h2>
                                     <div class="comment_form">
-                                        <h2>Để lại câu trả lời</h2>
-                                        <form action="https://demoxml.com/html/hotelbooking/single-post.html">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label>Tên</label>
-                                                    <input type="text" >
+                                        <c:if test="${empty sessionScope.cusObj}">
+                                            <h2>Đăng nhập để bình luận.</h2>
+                                            <a href="signin" class="btn" style="margin: 10px 0">Đăng nhập</a>
+                                        </c:if>
+                                        <c:if test="${not empty sessionScope.cusObj}">
+                                            <form id="commentForm">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="hidden" name="detailId" value="${d.newsDetailId}">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label>Tin nhắn</label>
+                                                        <textarea name="content" id="content" onkeyup="textAreaAdjust(this)" style="overflow:hidden" rows="3" cols="30"></textarea>
+                                                        <input style="font-weight: bold;" type="submit" value="Gửi">
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <label>Email</label>
-                                                    <input type="text" >
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label>Vấn đề</label>
-                                                    <input type="text" >
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label>Tin nhắn</label>
-                                                    <textarea name="" cols="30" rows="10"></textarea>
-                                                    <input type="submit" value="Reply">
-                                                </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </c:if>
                                     </div>
+
+                                    <ul class="coments" id="commentSection">
+                                        <c:forEach var="c" items="${listCommment}" varStatus="status">
+                                            <c:if test="${c.status == 'active'}">
+                                                <li class="${status.index < 3 ? "" : "see_more_item display_none"}" style="padding: 10px 0">
+                                                    <div class="comment_container">
+                                                        <div class="comment">
+                                                            <div class="com_author_photo">
+                                                                <img src="Views/client/img/default-avt.jpg" alt="">
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12">
+                                                                <div class="comment_details">
+                                                                    <h3>${c.customer_id.firstName} ${c.customer_id.lastName}<span class="comm_time">${c.comment_date}</span></h3>
+                                                                    <p>${c.content}</p>
+                                                                    <c:if test="${not empty sessionScope.cusObj}">
+                                                                        <a href="#" class="reply-button" data-comment-id="${c.comment_id}">Hồi đáp</a>
+                                                                    </c:if>
+                                                                    <c:if test="${not empty sessionScope.cusObj}">
+                                                                        <c:set var="cus" value="${sessionScope.cusObj}"/>
+                                                                        <c:if test="${cus.customerId == c.customer_id.customerId}">
+                                                                            <a href="delete_comment_customer?commentId=${c.comment_id}" class="reply delete-comment" data-comment-id="${c.comment_id}">| Gỡ bình luận</a>
+                                                                        </c:if>
+                                                                    </c:if>
+                                                                    <div class="reply-form" style="display: none;">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <form class="replyCommentForm" method="post" action="add_reply">
+                                                                                    <div class="reply_container">
+                                                                                        <input type="hidden" name="commentId" value="${c.comment_id}" >
+                                                                                        <textarea name="replyContent" onkeyup="textAreaAdjust(this)" style="overflow:hidden; resize: none; width: 100%" rows="2" cols="30" placeholder="Nhập nội dung hồi đáp..."></textarea>
+                                                                                        <div class="submit_reply_btn">
+                                                                                            <input type="submit" value="Gửi">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="replyContainer"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <c:if test="${not empty c.replies}">
+                                                            <c:forEach var="r" items="${c.replies}">
+                                                                <c:if test="${r.status == 'active'}">
+                                                                    <div class="comment" style="padding-left: 55px; padding-top: 10px">
+                                                                        <div class="com_author_photo">
+                                                                            <img src="Views/client/img/default-avt.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12">
+                                                                            <div class="comment_details">
+                                                                                <h3>${r.customer_id.firstName} ${r.customer_id.lastName}<span class="comm_time">${r.rely_date}</span></h3>
+                                                                                <p>${r.content}</p>
+                                                                                <c:if test="${not empty sessionScope.cusObj}">
+                                                                                    <c:set var="cus" value="${sessionScope.cusObj}"/>
+                                                                                    <c:if test="${cus.customerId == r.customer_id.customerId}">
+                                                                                        <a href="delete_reply_customer?replyId=${r.reply_id}&commentId=${c.comment_id}" class="reply delete-reply" data-reply-id="${r.reply_id}" data-comment-id="${c.comment_id}">Gỡ bình luận</a>
+                                                                                    </c:if>
+                                                                                </c:if>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                </li>
+                                            </c:if>
+                                        </c:forEach>
+                                        <div style="margin-bottom: 10px">
+                                            <c:if test="${listCommment.size() > 3}">
+                                                <button id="seeMoreBtn" class="see-more-btn" onclick="showComments()">Xem thêm</button>
+                                                <button id="seeLessBtn" class="see-more-btn display_none" onclick="hideComments()">Ẩn bớt</button>
+                                            </c:if>
+                                        </div>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <aside>
                             <div class="row">
                                 <div class="right_sidebar_area">
                                     <div class="col-lg-12 col-md-12 col-sm-6">
-                                        <div class="input_search margin-bottom-30">
-                                            <input type="text" placeholder="search">
+                                        <div class="input_search margin-bottom-30 text-center">
+                                            <h4>Tin tức mới nhất</h4>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-6">
-                                        <div class="blog_category margin-bottom-30">
-                                            <ul class="clearul">
-                                                <li><a href="#"><i class="fa fa-circle-thin"></i>Khách hàng rất thông minh</a></li>
-                                                <li><a href="#"><i class="fa fa-circle-thin"></i>Miseol mềm dày</a></li>
-                                                <li><a href="#"><i class="fa fa-circle-thin"></i>Làm bài tập về nhà đi</a></li>
-                                                <li><a href="#"><i class="fa fa-circle-thin"></i>Người vận chuyển trước</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-6">
-                                        <div class="blog_recent_post margin-bottom-30">
-                                            <div class="single_recent_post">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-xs-4">
-                                                        <div class="recent_thumb">
-                                                            <img src="img/recent_blog_post-2.png" alt="img">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-8 col-md-8 col-xs-8">
-                                                        <div class="recent_post_details">
-                                                            <h6>Điều quan trọng là đừng quá quan tâm đến vấn đề</h6>
-                                                            <p>Ngày 12 tháng 4 năm 2015</p>
-                                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-6">
+                                            <div class="blog_recent_post margin-bottom-30">
+                                                <div class="single_recent_post">
+                                                    <div class="row">
+                                                        <c:forEach var="newsItem" items="${list5New}">
+                                                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                                                <a href="news_detail_customer?newId=${newsItem.newsId}" class="recent_post_link">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-4 col-md-4 col-xs-4">
+                                                                            <div class="recent_thumb">
+                                                                                <img src="Views/admin/assets/img/product/${newsItem.img}" alt="img" class="recent_img">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-8 col-md-8 col-xs-8">
+                                                                            <div class="recent_post_details">
+                                                                                <h6>${newsItem.title}</h6>
+                                                                                <p>${newsItem.createDate}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="single_recent_post">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-xs-4">
-                                                        <div class="recent_thumb">
-                                                            <img src="img/recent_blog_post-1.png" alt="img">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-8 col-md-8 col-xs-8">
-                                                        <div class="recent_post_details">
-                                                            <h6>Gà nướng ngũ vị theo phong cách Việt Nam</h6>
-                                                            <p>Ngày 12 tháng 4 năm 2015</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="single_recent_post">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-xs-4">
-                                                        <div class="recent_thumb">
-                                                            <img src="img/recent_blog_post-3.png" alt="img">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-8 col-md-8 col-xs-8">
-                                                        <div class="recent_post_details">
-                                                            <h6>lorem phô mai dê và cuộn chorizo ​​​​</h6>
-                                                            <p>Ngày 12 tháng 4 năm 2015</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="single_recent_post">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-xs-4">
-                                                        <div class="recent_thumb">
-                                                            <img src="img/recent_blog_post-1.png" alt="img">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-8 col-md-8 col-xs-8">
-                                                        <div class="recent_post_details">
-                                                            <h6>Gà nướng ngũ vị kiểu Việt</h6>
-                                                            <p>Ngày 12 tháng 4 năm 2015</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-6">
-                                        <div class="recent_post_tags">
-                                        	<h6>Thẻ</h6>
-                                            <a href="#" class="active">truyền thuyết</a>
-                                            <a href="#">ipsum</a>
-                                            <a href="#">lorem ipsum</a>
-                                            <a href="#">giao diện người dùng</a>
-                                            <a href="#">Nỗi đau</a>
-                                            <a href="#">Dung hợp</a>
-                                            <a href="#">truyền thuyết</a>
-                                            <a href="#">Gà nóng</a>
-                                            <a href="#">lorem</a>
-                                            <a href="#">lorem</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </aside>
                     </div>
                 </div>
             </div>
         </section>
         <!-- end single blog section -->
-
-
-        <!-- start contact us area -->
-        <section class="contact_us_area content-left">
-            <div class="container">
-                <div class="contact_us clearfix">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="call clearfix">
-                            <h6>Gọi cho chúng tôi</h6>
-                            <p>123 456 7890</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="email_us clearfix">
-                            <h6>Gửi email cho chúng tôi</h6>
-                            <p>info@hotelbooking.com</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="news_letter clearfix">
-                            <input type="text" placeholder="Nhập ID cho Thư Tin tức">
-                            <a href="#" class="btn btn-blue">Đi</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="social_icons clearfix">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end contact us area -->
-
-        <!-- start footer -->
-        <footer class="footer_area">
-            <div class="container">
-                <div class="footer">
-                    <div class="footer_top padding-top-80 clearfix">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="footer_widget">
-                                <div class="footer_logo">
-                                    <a href="#"><img src="img/footer-logo-one.png" alt=""></a>
-                                </div>
-                                <p>Điều thực sự quan trọng là có một khách hàng tốt, một khách hàng đồng hành. Trong quá trình theo đuổi nỗi đau.</p>
-                                <ul>
-                                    <li>
-                                        <P><i class="fa fa-map-marker"></i>St Amsterdam Phần Lan, <br> Thống kê Hoa Kỳ AKY16 8PN</P>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="row">
-                                <div class="footer_widget clearfix">
-                                    <h5 class="padding-left-15">Đường dẫn nhanh</h5>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <ul>
-                                            <li><a href="#">Phòng</a></li>
-                                            <li><a href="#">Đồ uống thực phẩm</a></li>
-                                            <li><a href="#">Địa điểm bãi biển</a></li>
-                                            <li><a href="#">Tiện nghi</a></li>
-                                        </ul>  
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 sol-sm-6">
-                                        <ul>
-                                            <li><a href="#">Sức khỏe</a></li>
-                                            <li><a href="#">Email</a></li>
-                                            <li><a href="#">Tuyên ngôn</a></li>
-                                            <li><a href="#">Liên hệ</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="footer_widget">
-                                <h5>Chúng tôi toàn cầu</h5>
-                                <div class="footer_map">
-                                    <a href="#"><img src="img/footer-map-two.jpg" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="container">
-                            <div class="footer_copyright margin-tb-50 content-center">
-                                <p>© 2015 <a href="#">Đặt phòng khách sạn</a>. Đã đăng ký Bản quyền</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- end footer -->
-		
-		
-		
-        <!-- jquery library -->
-        <script src="js/vendor/jquery-1.11.2.min.js"></script>
-        <!-- bootstrap -->
-        <script src="js/bootstrap.min.js"></script>
-		
-        <!-- uikit -->
-        <script src="js/uikit.min.js"></script>
-        <!-- easing -->
-		<script src="js/jquery.easing.1.3.min.js"></script>
-        <script src="js/datepicker.js"></script>
-        <!-- scroll up -->
-        <script src="js/jquery.scrollUp.min.js"></script>
-        <!-- owlcarousel -->
-        <script src="js/owl.carousel.min.js"></script>
-        <!-- lightslider -->
-        <script src="js/lightslider.js"></script>
-        <!-- wow Animation -->
-        <script src="js/wow.min.js"></script>
-        <!--Activating WOW Animation only for modern browser-->
-        <!--[if !IE]><!-->
-        <script type="text/javascript">new WOW().init();</script>
-        <!--<![endif]-->
-
-        <!--Oh Yes, IE 9+ Supports animation, lets activate for IE 9+-->
-        <!--[if gte IE 9]>
-            <script type="text/javascript">new WOW().init();</script>
-        <![endif]-->         
-
-        <!--Opacity & Other IE fix for older browser-->
-        <!--[if lte IE 8]>
-            <script type="text/javascript" src="js/ie-opacity-polyfill.js"></script>
-        <![endif]-->
-
-
-
-        <!-- my js -->
-        <script src="js/main.js"></script>
-		
+        <jsp:include page="layout/footer.jsp"></jsp:include>
     </body>
 
-<!-- Mirrored from demoxml.com/html/hotelbooking/single-blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 May 2024 09:20:07 GMT -->
 </html>

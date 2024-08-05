@@ -1,19 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package Controllers.Staff;
 
-import DAL.Add_StaffDao;
+import DAO.AddStaffDAO;
 import Models.CaptchaInfo;
 import Utils.CaptchaStore;
+import Utils.LoginValidator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -21,7 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author admin
  */
 public class ChangePassStaffServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 
     private ConcurrentHashMap<String, CaptchaInfo> captchaStore = CaptchaStore.getInstance();
 
@@ -72,24 +70,32 @@ public class ChangePassStaffServlet extends HttpServlet {
         String newPasswordAgain = request.getParameter("passworda");
         String email = request.getParameter("email");
         String encodedCaptcha = request.getParameter("encodedCaptcha");
-
-        Add_StaffDao staffDAO = new Add_StaffDao();
+        LoginValidator log = new LoginValidator();
+        boolean valiNewPass = log.validatePasswordStaff(newPassword);
+        AddStaffDAO staffDAO = new AddStaffDAO();
         String currentPassword = staffDAO.getPasswordByEmail(email);
         if (!currentPassword.equals(oldPassword)) {
-            request.setAttribute("message", "Old password is incorrect.");         
-            response.sendRedirect("/HotelBooking/change_pass_staff?encodedCaptcha=" + encodedCaptcha + "&message=Old%20password%20is%20incorrect.");
+            String message1 = URLEncoder.encode("Mật khẩu cũ không đúng", "UTF-8");
+
+            response.sendRedirect("/HotelBooking/change_pass_staff?encodedCaptcha=" + encodedCaptcha + "&message1=" + message1);
             return;
         }
+        if (!valiNewPass) {
+            String message1 = URLEncoder.encode("Mật khảu phải có 6-15 kí tự bao gồm tự hoa và số", "UTF-8");
 
+            response.sendRedirect("/HotelBooking/change_pass_staff?encodedCaptcha=" + encodedCaptcha + "&message1=" + message1);
+            return;
+        }
         if (!newPassword.equals(newPasswordAgain)) {
-            request.setAttribute("message", "New passwords do not match.");
-            response.sendRedirect("/HotelBooking/change_pass_staff?encodedCaptcha=" + encodedCaptcha + "&message=New%20passwords%20do%20not%20match.");
+            String message1 = URLEncoder.encode("Mật khẩu nhập lại không khớp", "UTF-8");
+
+            response.sendRedirect("/HotelBooking/change_pass_staff?encodedCaptcha=" + encodedCaptcha + "&message1=" + message1);
             return;
         }
         // Cập nhật mật khẩu mới
         boolean passwordChanged = staffDAO.changePasswordByEmail(email, newPassword);
         if (passwordChanged) {
-            request.setAttribute("message", "Password changed successfully.");
+            request.setAttribute("message", "Thay đổi thành công");
         } else {
             request.setAttribute("message", "Failed to change password.");
         }

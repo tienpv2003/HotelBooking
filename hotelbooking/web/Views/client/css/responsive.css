@@ -14,7 +14,7 @@
 --------------------------------------------*/
 
 
-body#booking_page .star {
+#booking_page .star {
   margin-bottom: 0;
 }
 .mainmenu .nav.navbar-nav > li > a {
@@ -33,7 +33,7 @@ body#home_one .mainmenu .nav.navbar-nav > li > a{
 .breadcrumb_main_area .special_offer_sub h3 {
     left: 18%;
 }
-body#booking_page .facilities_name .section_title {
+#booking_page .facilities_name .section_title {
   margin-bottom: 15px;
 }
 .breadcrumb_main_area .special_offer_sub h2 {
@@ -51,10 +51,10 @@ body#booking_page .facilities_name .section_title {
 .contact_us .social_icons ul li a {
     padding-left: 18px;
 }
-body#booking_page .single_facilities_name > li > img, body#room_detail_page .single_facilities_name > li > img {
+#booking_page .single_facilities_name > li > img, body#room_detail_page .single_facilities_name > li > img {
   margin-right: 2px;
 }
-body#booking_page .single_facilities_name > li > p, body#room_detail_page .single_facilities_name > li > p {
+#booking_page .single_facilities_name > li > p, body#room_detail_page .single_facilities_name > li > p {
   font-size: 12px;
 }
 
@@ -240,7 +240,7 @@ body#home_one .header_login > ul > li > a {
 .breadcrumb_main_area .special_offer_sub > span {
   left: 51%;
 }
-body#about_us_page .single_facilities_name > li:first-child, body#room_detail_page .single_facilities_name > li:first-child, body#booking_page .single_facilities_name > li:first-child {
+body#about_us_page .single_facilities_name > li:first-child, body#room_detail_page .single_facilities_name > li:first-child, #booking_page .single_facilities_name > li:first-child {
   margin-bottom: 10px;
 }
 .room_book h6 {
@@ -273,7 +273,7 @@ body#about_us_page .single_facilities_name > li:first-child, body#room_detail_pa
 .contact_us .social_icons ul li a i, body#contact_us_page .social_icons > ul > li > i {
   font-size: 14px;
 }
-body#booking_page .facilities_name .section_title {
+#booking_page .facilities_name .section_title {
   margin-bottom: 10px;
 }
 
@@ -512,7 +512,7 @@ body#single_blog_page .right_sidebar_area{
 .container {
     width:300px;
 }
-body#booking_page .facilities_name .section_title {
+#booking_page .facilities_name .section_title {
   margin-bottom: 10px;
 }
 .right_header_top .nav.navbar-nav > li {
@@ -544,29 +544,29 @@ body#booking_page .facilities_name .section_title {
 .breadcrumb_main_area .special_offer_sub > span {
   left: 40%;
 }
-body#booking_page .booking ul.nav-tabs > li > a {
+#booking_page .booking ul.nav-tabs > li > a {
   font-size: 11px;
   padding: 10px;
 }
-body#booking_page .booking ul.nav-tabs > li > a > i {
+#booking_page .booking ul.nav-tabs > li > a > i {
   padding: 11px 16px 11px 15px;
 }
-body#booking_page .booking_info_area .section_title{
+#booking_page .booking_info_area .section_title{
     margin-top: 23px;
 }
-body#about_us_page .single_facilities_name > li > img, body#room_detail_page .single_facilities_name > li > img, body#booking_page .single_facilities_name > li > img {
+body#about_us_page .single_facilities_name > li > img, body#room_detail_page .single_facilities_name > li > img, #booking_page .single_facilities_name > li > img {
   margin-right: 2px;
 }
-body#about_us_page .single_facilities_name > li > p, body#room_detail_page .single_facilities_name > li > p, body#booking_page .single_facilities_name > li > p {
+body#about_us_page .single_facilities_name > li > p, body#room_detail_page .single_facilities_name > li > p, #booking_page .single_facilities_name > li > p {
   font-size: 8px;
 }
-body#about_us_page .single_facilities_name > li:first-child, body#room_detail_page .single_facilities_name > li:first-child, body#booking_page .single_facilities_name > li:first-child {
+body#about_us_page .single_facilities_name > li:first-child, body#room_detail_page .single_facilities_name > li:first-child, #booking_page .single_facilities_name > li:first-child {
   margin-bottom: 0px;
 }
-body#booking_page .payment_info_area .right_pay_now {
+#booking_page .payment_info_area .right_pay_now {
   margin-top: 35px;
 }
-body#booking_page .payment_info_area .payment_system ul li {
+#booking_page .payment_info_area .payment_system ul li {
   margin-bottom: 13px;
 }
 .contact_us_area {
